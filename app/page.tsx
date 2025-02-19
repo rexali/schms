@@ -1,8 +1,18 @@
 'use client'
 import Image from "next/image";
+import Script from "next/script";
+import { Fragment } from "react";
 export default function Home() {
   return (
-    <>
+    <div>
+      <Fragment>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900" />
+        <link rel="stylesheet" href={"/vendor/bootstrap/css/bootstrap.min.css"} />
+        <link rel="stylesheet" href={"/assets/css/fontawesome.css"} />
+        <link rel="stylesheet" href={"/assets/css/templatemo-edu-meeting.css"} />
+        <link rel="stylesheet" href={"/assets/css/owl.css"} />
+        <link rel="stylesheet" href={"/assets/css/lightbox.css"} />
+      </Fragment>
       {/* <!-- Sub Header --> */}
       <div className="sub-header">
         <div className="container">
@@ -97,7 +107,7 @@ export default function Home() {
 
                 <div className="item">
                   <div className="icon">
-                    <Image height={100} width={100} src="/assets/images/service-icon-01.png" alt="pic" />
+                    <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/service-icon-01.png" alt="pic" />
                   </div>
                   <div className="down-content">
                     <h4>Best Education</h4>
@@ -107,7 +117,7 @@ export default function Home() {
 
                 <div className="item">
                   <div className="icon">
-                    <Image height={100} width={100} src="/assets/images/service-icon-02.png" alt="pic" />
+                    <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/service-icon-02.png" alt="pic" />
                   </div>
                   <div className="down-content">
                     <h4>Best Teachers</h4>
@@ -117,7 +127,7 @@ export default function Home() {
 
                 <div className="item">
                   <div className="icon">
-                    <Image height={100} width={100} src="/assets/images/service-icon-03.png" alt="pic" />
+                    <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/service-icon-03.png" alt="pic" />
                   </div>
                   <div className="down-content">
                     <h4>Best Students</h4>
@@ -127,7 +137,7 @@ export default function Home() {
 
                 <div className="item">
                   <div className="icon">
-                    <Image height={100} width={100} src="/assets/images/service-icon-02.png" alt="pic" />
+                    <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/service-icon-02.png" alt="pic" />
                   </div>
                   <div className="down-content">
                     <h4>Online Meeting</h4>
@@ -137,7 +147,7 @@ export default function Home() {
 
                 <div className="item">
                   <div className="icon">
-                    <Image height={100} width={100} src="/assets/images/service-icon-03.png" alt="pic" />
+                    <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/service-icon-03.png" alt="pic" />
                   </div>
                   <div className="down-content">
                     <h4>Best Networking</h4>
@@ -182,7 +192,7 @@ export default function Home() {
                       <div className="price">
                         <span>$22.00</span>
                       </div>
-                      <a href="meeting-details.html"><Image height={100} width={100} src="/assets/images/meeting-01.jpg" alt="New Lecturer Meeting" /></a>
+                      <a href="meeting-details.html"><Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/meeting-01.jpg" alt="New Lecturer Meeting" /></a>
                     </div>
                     <div className="down-content">
                       <div className="date">
@@ -199,7 +209,7 @@ export default function Home() {
                       <div className="price">
                         <span>$36.00</span>
                       </div>
-                      <a href="meeting-details.html"><Image height={100} width={100} src="/assets/images/meeting-02.jpg" alt="Online Teaching" /></a>
+                      <a href="meeting-details.html"><Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/meeting-02.jpg" alt="Online Teaching" /></a>
                     </div>
                     <div className="down-content">
                       <div className="date">
@@ -216,7 +226,7 @@ export default function Home() {
                       <div className="price">
                         <span>$14.00</span>
                       </div>
-                      <a href="meeting-details.html"><Image height={100} width={100} src="/assets/images/meeting-03.jpg" alt="Higher Education" /></a>
+                      <a href="meeting-details.html"><Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/meeting-03.jpg" alt="Higher Education" /></a>
                     </div>
                     <div className="down-content">
                       <div className="date">
@@ -233,7 +243,7 @@ export default function Home() {
                       <div className="price">
                         <span>$48.00</span>
                       </div>
-                      <a href="meeting-details.html"><Image height={100} width={100} src="/assets/images/meeting-04.jpg" alt="Student Training" /></a>
+                      <a href="meeting-details.html"><Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/meeting-04.jpg" alt="Student Training" /></a>
                     </div>
                     <div className="down-content">
                       <div className="date">
@@ -369,7 +379,7 @@ export default function Home() {
             <div className="col-lg-12">
               <div className="owl-courses-item owl-carousel">
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-01.jpg" alt="Course One" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-01.jpg" alt="Course One" />
                   <div className="down-content">
                     <h4>Maths</h4>
                     <div className="info">
@@ -391,7 +401,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-02.jpg" alt="Course Two" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-02.jpg" alt="Course Two" />
                   <div className="down-content">
                     <h4>English</h4>
                     <div className="info">
@@ -411,7 +421,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-03.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-03.jpg" alt="" />
                   <div className="down-content">
                     <h4>Biology</h4>
                     <div className="info">
@@ -432,7 +442,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-04.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-04.jpg" alt="" />
                   <div className="down-content">
                     <h4>Physics</h4>
                     <div className="info">
@@ -454,7 +464,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-01.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-01.jpg" alt="" />
                   <div className="down-content">
                     <h4>Chemistry</h4>
                     <div className="info">
@@ -476,7 +486,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-02.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-02.jpg" alt="" />
                   <div className="down-content">
                     <h4>Computer</h4>
                     <div className="info">
@@ -498,7 +508,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-03.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-03.jpg" alt="" />
                   <div className="down-content">
                     <h4>Accounting</h4>
                     <div className="info">
@@ -520,7 +530,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-04.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-04.jpg" alt="" />
                   <div className="down-content">
                     <h4>Government</h4>
                     <div className="info">
@@ -542,7 +552,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-01.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-01.jpg" alt="" />
                   <div className="down-content">
                     <h4>History</h4>
                     <div className="info">
@@ -564,7 +574,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-02.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-02.jpg" alt="" />
                   <div className="down-content">
                     <h4>Security and Civic Education</h4>
                     <div className="info">
@@ -586,7 +596,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-03.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-03.jpg" alt="" />
                   <div className="down-content">
                     <h4>Basic Technology</h4>
                     <div className="info">
@@ -608,7 +618,7 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="item">
-                  <Image height={100} width={100} src="/assets/images/course-04.jpg" alt="" />
+                  <Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/course-04.jpg" alt="" />
                   <div className="down-content">
                     <h4>Basic Science</h4>
                     <div className="info">
@@ -679,7 +689,7 @@ export default function Home() {
             </div>
             <div className="col-lg-6 align-self-center">
               <div className="video">
-                <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><Image height={100} width={100} src="/assets/images/play-icon.png" alt="" /></a>
+                <a href="https://www.youtube.com/watch?v=HndV87XpkWg" target="_blank"><Image style={{ width: 'auto', height: 'auto' }} height={100} width={100} src="/assets/images/play-icon.png" alt="" /></a>
               </div>
             </div>
           </div>
@@ -756,7 +766,18 @@ export default function Home() {
             <br />Design: <a href="https://siniotech.com" target="_parent" title="free css templates">Siniotech Ltd</a></p>
         </div>
       </section>
-
-    </>
+      <Fragment>
+        <Script src="/vendor/jquery/jquery.min.js" defer />
+        <Script src="/vendor/bootstrap/js/bootstrap.min.js" defer />
+        <Script src="/assets/js/isotope.min.js" defer />
+        <Script src="/assets/js/owl-carousel.js" async />
+        <Script src="/assets/js/lightbox.js" defer />
+        <Script src="/assets/js/tabs.js" defer />
+        <Script src="/assets/js/video.js" defer />
+        <Script src="/assets/js/slick-slider.js" defer />
+        <Script src="/assets/js/custom.js" async />
+        <Script src="/assets/js/main.js" defer />
+      </Fragment>
+    </div>
   );
 }
