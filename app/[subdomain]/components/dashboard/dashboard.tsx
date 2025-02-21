@@ -3,6 +3,7 @@
 import { Fragment, useState } from "react";
 import HorizontalMenu from "../menu/HorizontalMenu";
 import Script from "next/script";
+import './dashboard.css';
 
 export default function Dashboard(props: any) {
     let [tabName, setTabName] = useState('register');
@@ -33,26 +34,6 @@ export default function Dashboard(props: any) {
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
                             <li className="active"><a href="#">Dashboard</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('gender')} href="#">Gender</a></li>
-                            <li><a href="#">Geo</a></li>
-                            <li><a href="#">Age</a></li>
-                            <li><a href="#">Gender</a></li>
-                            <li><a href="#">Geo</a></li>
-                            <li><a href="#">Age</a></li>
-                            <li><a href="#">Gender</a></li>
-                            <li><a href="#">Geo</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            {/* nav end */}
-            <HorizontalMenu />
-            <div className="container-fluid">
-                <div className="row content">
-                    <div className="col-sm-3 sidenav hidden-xs">
-                        <h2>Logo</h2>
-                        <ul className="nav nav-pills nav-stacked">
-                            <li className="active"><a href="#section1">Dashboard</a></li>
                             <li><a data-toggle="tab" onClick={() => openTab('register')} href="#">Register</a></li>
                             <li><a data-toggle="tab" onClick={() => openTab('plan')} href="#section2">Lesson Plan</a></li>
                             <li><a data-toggle="tab" onClick={() => openTab('note')} href="#section3">Note</a></li>
@@ -66,6 +47,31 @@ export default function Dashboard(props: any) {
                             <li><a data-toggle="tab" onClick={() => openTab('messages')} href="#section3">Messages</a></li>
                             <li><a data-toggle="tab" onClick={() => openTab('pta')} href="#section3">PTA</a></li>
                             <li><a data-toggle="tab" onClick={() => openTab('report')} href="#section3">Report</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            {/* nav end */}
+            <HorizontalMenu openTab={openTab} tabName={tabName} />
+            <div className="container-fluid">
+                <div className="row content">
+                    <div className="col-sm-3 sidenav hidden-xs">
+                        <h2>Logo</h2>
+                        <ul className="nav nav-pills nav-stacked">
+                            <li className="active"><a href="#section1">Dashboard</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('register')} href="#section2">Register</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('plan')} href="#section3">Lesson Plan</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('note')} href="#section4">Note</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('student')} href="#section5">Student</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('teacher')} href="#section6">Teacher</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('test')} href="#section7">Test</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('exams')} href="#section8">Exams</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('extra')} href="#section9">Extra</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('admission')} href="#section10">Application</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('fee')} href="#section11">School Fee</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('messages')} href="#section12">Messages</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('pta')} href="#section13">PTA</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('report')} href="#section14">Report</a></li>
                         </ul><br />
                     </div>
                     <br />

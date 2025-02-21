@@ -1,4 +1,3 @@
-import './globals.css';
 import Dashboard from './components/dashboard/dashboard';
 
 export default async function SubdomainPage({ params }: { params: Promise<{ subdomain: string }> }) {
