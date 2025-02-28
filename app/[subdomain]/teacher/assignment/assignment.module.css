@@ -1,0 +1,16 @@
+.center{
+    /* margin: auto; */
+    margin-top: 40px;
+}
+
+.spacebetw{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.detailsHeight{
+    min-height: 560px;
+}
+
+

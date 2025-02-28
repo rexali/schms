@@ -1,12 +1,12 @@
 'use client';
 
 import { Fragment, useState } from "react";
-import HorizontalMenu from "../../components/menu/HorizontalMenu";
+import HorizontalMenu from "../../../app/[subdomain]/components/menu/HorizontalMenu";
 import Script from "next/script";
 import './dashboard.css';
 
-export default function AdministratorDashboard(props: any) {
-    let [tabName, setTabName] = useState('students');
+export default function ParentDashboard(props: any) {
+    let [tabName, setTabName] = useState('reports');
 
     const openTab = (tabname: any) => {
         setTabName(tabname);
@@ -34,11 +34,10 @@ export default function AdministratorDashboard(props: any) {
                     <div className="collapse navbar-collapse" id="myNavbar">
                         <ul className="nav navbar-nav">
                             <li className="active"><a href="#">Dashboard</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('students')} href="#">Students</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('staff')} href="#section2">Staff</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('classes')} href="#section3">Classes</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('schedules')} href="#section3">Schedules</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('reports')} href="#section2">Reports</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('reports')} href="#section1">Report</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('assignment')} href="#section2">Assignments</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('grades')} href="#section3">Contact</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('messages')} href="#section4">Messages</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,29 +50,26 @@ export default function AdministratorDashboard(props: any) {
                         <h2>Logo</h2>
                         <ul className="nav nav-pills nav-stacked">
                             <li className="active"><a href="#section1">Dashboard</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('students')} href="#">Students</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('staff')} href="#section2">Staff</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('classes')} href="#section3">Classes</a></li>
-                            <li><a data-toggle="tab" onClick={() => openTab('schedules')} href="#section3">Schedules</a></li>
                             <li><a data-toggle="tab" onClick={() => openTab('reports')} href="#section2">Reports</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('assignment')} href="#section3">Assignments</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('grades')} href="#section4">Grades</a></li>
+                            <li><a data-toggle="tab" onClick={() => openTab('messages')} href="#section5">Messages</a></li>
                         </ul><br />
                     </div>
                     <br />
 
                     <div className="col-sm-9">
-
                         <div className="well">
-                            <h4>Administrator Dashboard</h4>
+                            <h4>Parent Dashboard</h4>
                             <p>Welcome to {props.subdomain}</p>
                         </div>
 
                         <div className="tab-content well">
                             <div className="tab-pane active" id={tabName}>
-                                {tabName === 'students' ? <div>Students</div> : ''}
-                                {tabName === 'staff' ? <div>Staff</div> : ''}
-                                {tabName === 'classes' ? <div>Classes</div> : ''}
-                                {tabName === 'schedules' ? <div>Schedules</div> : ''}
-                                {tabName === 'reports' ? <div>Reports</div> : ''}
+                                {tabName === 'reports' ? <div>Reports:assignment,grade,attendance</div> : ''}
+                                {tabName === 'assignment' ? <div>Assignments:submit</div> : ''}
+                                {tabName === 'grades' ? <div>Grades</div> : ''}
+                                {tabName === 'messages' ? <div>Messages</div> : ''}
                             </div>
                         </div>
                     </div>

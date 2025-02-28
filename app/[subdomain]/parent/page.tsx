@@ -1,6 +1,15 @@
-import StudentDashboard from "./dashboard/dashboard";
+import ParentDashboard from "./dashboard/ParentDashboard";
 
-export default async function ParentPage({ params }: { params: Promise<{ subdomain: string }> }) {
+export default async function AdminisitratorPage({ params }: { params: Promise<{ subdomain: string }> }) {
     const { subdomain } = await params;
-    return <StudentDashboard subdomain={subdomain} />
+    return <ParentDashboard
+    subdomain={subdomain} 
+    tabNames={[
+        "Assignments", 
+        "Grades",
+        "Attendance", 
+        "Communication", 
+        'Reports'
+    ]} 
+    />
 }

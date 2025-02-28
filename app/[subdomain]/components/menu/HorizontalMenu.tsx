@@ -28,12 +28,27 @@ export default function HorizontalMenu(props: any) {
 }
 
 export function DynamicHorizontalMenu(props: any) {
+  const isMobile = useMediaQuery({ maxDeviceWidth: 1023 });
 
-  return (
-    <div className="scrollmenu" style={{ margin: 'auto' }}>
+  return isMobile && (
+    <div className="scrollmenu">
       {
         props.tabNames.map((tabName: string, index: number) => {
-          return <a key={index} data-toggle="tab" onClick={() => props.openTab(tabName.toLowerCase())}>{tabName.toUpperCase()}</a>
+          return <a className="text-white" key={index} data-toggle="tab" onClick={() => props.openTab(tabName.toLowerCase())}>{tabName.toUpperCase()}</a>
+        })
+      }
+    </div>
+  )
+}
+
+
+
+export function HorizontalTabsMenu(props: any) {
+  return (
+    <div className="scrollmenu m-auto">
+      {
+        props.tabNames.map((tabName: string, index: number) => {
+          return <a className="text-white" key={index} data-toggle="tab" onClick={() => props.openTab(tabName.toLowerCase())}>{tabName.toUpperCase()}</a>
         })
       }
     </div>
