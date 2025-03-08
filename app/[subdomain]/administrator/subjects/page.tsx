@@ -1,20 +1,19 @@
+'use client'
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const SubjectsList = () => {
 
-    const subjectsData = [
+    const [subjectsData, setSubjectData] = useState([
         {
             name: 'Maths',
         },
-
         // Add more classes here
-    ];
+    ]);
 
-    const [subject, setSubject] = useState(
-        {
-            name: '',
-        },
+    const [subject, setSubject] = useState({
+        name: '',
+    }
     )
 
     function handleClassChange(event: { target: { name: string, value: string } }): void {
@@ -22,32 +21,34 @@ const SubjectsList = () => {
     }
 
     function addSubject(event: any): void {
-        subjectsData.push(subject);
+        setSubjectData([...subjectsData, { ...subject }]);
     }
 
     return (
         <div className="container mt-5">
-            <h1>Add a class</h1>
-
+            <h1>Add a subject</h1>
             <form>
                 <div className='row'>
-                    <div className='col-md-3'>
-                        <div className="mb-3">
-                            <label className="form-label">Class Name</label>
+                    <div className='col-md-6'>
+                        <div className="mb-2">
+                            {/* <label>Class Name</label> */}
                             <input
                                 type="text"
                                 className="form-control"
                                 name="name"
                                 value={subject.name}
                                 onChange={handleClassChange}
+                                placeholder='Enter subject here'
                                 required
                             />
                         </div>
                     </div>
 
-                </div>
-                <div className='text-center'>
-                    <button type="button" className="btn btn-secondary" onClick={addSubject}>Add Subject</button>
+                    <div className='col-md-6'>
+                        <div className='text-center'>
+                            <button type="button" className="btn btn-secondary" onClick={addSubject}>Add Subject</button>
+                        </div>
+                    </div>
                 </div>
             </form>
 
@@ -58,14 +59,14 @@ const SubjectsList = () => {
                     <thead className="thead-dark">
                         <tr>
                             <th>Subject Name</th>
-                            <th colSpan={2}>Action</th>
+                            <th colSpan={2} className='text-center'>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {subjectsData.map((subject, studentIndex) => (
                             <tr key={studentIndex}>
                                 <td>{subject.name}</td>
-                                <td><button className='btn btn-primary'>View</button><button className='btn btn-primary'>Edit</button></td>
+                                <td className='d-flex justify-content-around'><button className='btn btn-primary'>View</button><button className='btn btn-primary'>Edit</button></td>
                             </tr>
                         ))}
                     </tbody>

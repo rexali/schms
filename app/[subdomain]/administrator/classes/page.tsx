@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -9,26 +10,26 @@ const ClassesList = () => {
     {
       className: 'Class 1',
       classMaster: 'Mr. Smith',
-      classCaptain:'Jone jon',
-      section:'primary'
+      classCaptain: 'Jone jon',
+      section: 'primary'
     }
-   
+
     // Add more classes here
   ]);
 
   const [studentClass, setStudentClass] = useState({
-      className: '',
-      classMaster: '',
-      classCaptain:'',
-      section:''
-    })
+    className: '',
+    classMaster: '',
+    classCaptain: '',
+    section: ''
+  })
 
-  function handleClassChange(event: {target:{name:string,value:string}}): void {
-           setStudentClass({...studentClass,[event.target.name]:event.target.value})
+  function handleClassChange(event: { target: { name: string, value: string } }): void {
+    setStudentClass({ ...studentClass, [event.target.name]: event.target.value })
   }
 
   function addClass(event: any): void {
-    setClassesData([...classesData,studentClass]);
+    setClassesData([...classesData, studentClass]);
   }
 
   return (
@@ -92,40 +93,44 @@ const ClassesList = () => {
               />
             </div>
           </div>
+          <div className='col-md-2'>
+            <div className='text-center '>
+            <label className="form-label">..</label>
+              <input type="button" className="btn btn-secondary form-control" onClick={addClass} value={'Add class'} />
+            </div>
+          </div>
 
         </div>
-        <div className='text-center'>
-          <button type="button" className="btn btn-secondary" onClick={addClass}>Add class</button>
-        </div>
+
       </form>
 
       <h2>Classes List</h2>
-      
-          <div className="table-responsive">
-            <table className="table table-bordered table-striped">
-              <thead className="thead-dark">
-                <tr>
-                  <th>Class Name</th>
-                  <th>Class Captain</th>
-                  <th>Class Master</th>
-                  <th>Section</th>
-                  <th colSpan={2}>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {classesData.map((student, studentIndex) => (
-                  <tr key={studentIndex}>
-                    <td>{student.className}</td>
-                    <td>{student.classCaptain}</td>
-                    <td>{student.classMaster}</td>
-                    <td>{student.section}</td>
-                    <td><button className='btn btn-primary'>View</button><button className='btn btn-primary'>Edit</button></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+
+      <div className="table-responsive">
+        <table className="table table-bordered table-striped">
+          <thead className="thead-dark">
+            <tr>
+              <th>Class Name</th>
+              <th>Class Captain</th>
+              <th>Class Master</th>
+              <th>Section</th>
+              <th colSpan={2} className='text-center'>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {classesData.map((student, studentIndex) => (
+              <tr key={studentIndex}>
+                <td>{student.className}</td>
+                <td>{student.classCaptain}</td>
+                <td>{student.classMaster}</td>
+                <td>{student.section}</td>
+                <td className='d-flex flex-row justify-content-around'><button className='btn btn-primary'>View</button><button className='btn btn-primary'>Edit</button></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
