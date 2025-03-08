@@ -1,11 +1,11 @@
 import ListGroup from "react-bootstrap/esm/ListGroup";
-import DeleleModal from "../components/delete-modal";
-import { Close, Delete, Edit } from "@mui/icons-material";
+import { Delete, Edit } from "@mui/icons-material";
 import { useState } from "react";
-import EditLesson from "./EditLesson";
+import EditLessonPlan from "./EditLessonPlan";
+import DeleleModal from "../../../components/common/delete-modal";
 
-export default function Lessons(props: any) {
-    const data: any = [{ topic: "topic1" }, { topic: "topic1" }];
+export default function LessonsPlans(props: any) {
+    const data: any = [{ topic: "plan 1" }, { topic: "plan 2" }];
     const [modal, setModal] = useState<any>(false);
     const [edit, setEdit] = useState<any>(false);
 
@@ -16,11 +16,12 @@ export default function Lessons(props: any) {
 
     if (edit) {
 
-        return <EditLesson setEdit={setEdit} />
+        return <EditLessonPlan setEdit={setEdit} />
     }
 
     return (
-        <div>
+        <div className="w-100">
+            <h1>Lesson Plans</h1>
             {
                 <ListGroup as={'ol'} numbered>
                     {

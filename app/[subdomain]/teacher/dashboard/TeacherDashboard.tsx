@@ -6,9 +6,14 @@ import VerticalMenu from "../../components/menu/VerticalMenu";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import AssignmentPage from "../assignment/page";
 import LessonPage from "../lesson/page";
+import AttendancePage from "../attendance/page";
+import ViewAttendancePage from "../attendance/ViewAttendance";
+import TeacherMessagesList from "../messages/page";
+import TeacherClasses from "../classes/page";
+import QuestionsForm from "../questions/examinations/page";
 
 export default function TeacherDashboard(props: any) {
-    let [tabName, setTabName] = useState('classes');
+    let [tabName, setTabName] = useState('attendance');
 
     const openTab = (tabname: any) => {
         setTabName(tabname);
@@ -61,13 +66,15 @@ export default function TeacherDashboard(props: any) {
                             <p>Welcome to Teacher Dashboard</p>
                         </div>
                         <div className="tab-pane active" id={tabName}>
-                            {tabName === 'attendance' ? <div>Register:attendance</div> : ''}
+                            {tabName === 'attendance' ? <div className="container"><AttendancePage /></div> : ''}
                             {tabName === 'lesson' ? <div className="container"><LessonPage /></div> : ''}
                             {tabName === 'assignment' ? <AssignmentPage /> : ''}
-                            {tabName === 'reports' ? <div>Report</div> : ''}
-                            {tabName === 'classes' ? <div>Students: section, class etc</div> : ''}
-                            {tabName === 'activities' ? <div>Activites: class work etc</div> : ''}
-                            {tabName === 'questions' ? <div>Questions etc</div> : ''}
+                            {tabName === 'reports' ? <div className="container"><ViewAttendancePage/></div> : ''}
+                            {tabName === 'classes' ? <div className="container"><TeacherClasses/> </div> : ''}
+                            {tabName === 'activities' ? <div><QuestionsForm type={'Continous Assessment'}/></div> : ''}
+                            {tabName === 'questions' ? <div><QuestionsForm type={'Examination'}/></div> : ''}
+                            {tabName === 'messages' ? <div><TeacherMessagesList/></div> : ''}
+
 
                         </div>
                     </div>

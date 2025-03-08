@@ -43,6 +43,22 @@ export function DynamicHorizontalMenu(props: any) {
 
 
 
+export function HorizontalMenuDesktopMobile(props: any) {
+  const isMobile = useMediaQuery({ maxDeviceWidth: 1023 });
+
+  return (
+    <div className="scrollmenu">
+      {
+        props.tabNames.map((tabName: string, index: number) => {
+          return <a className="text-white" key={index} data-toggle="tab" onClick={() => props.openTab(tabName.toLowerCase())}>{tabName.toUpperCase()}</a>
+        })
+      }
+    </div>
+  )
+}
+
+
+
 export function HorizontalTabsMenu(props: any) {
   return (
     <div className="scrollmenu m-auto">

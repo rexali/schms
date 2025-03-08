@@ -44,7 +44,7 @@ export default function AddAssignment(props: any) {
     return (
         <form className='w-100 m-auto' onSubmit={handleCreateAssignment}>
 
-            <h2 className="h3 mb-3 fw-normal bg-light p-2">Create an assignment</h2>
+            <h2 className="h3 mb-3 fw-normal bg-light p-2">Add assignment</h2>
 
             <div className="form-floatin">
                 <label htmlFor="topic">Topic</label>

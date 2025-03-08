@@ -7,13 +7,15 @@ export default async function AdminisitratorPage({ params }: { params: Promise<{
     tabNames={[
         "Students", 
         "Staff",
+        'applicants',
         "Classes", 
         "Schedules", 
         'Attendance',
         'Lessons',
         'Questions', 
         'Reports',
-        'extra',
+        'events',
+        'messages',
         'pta'
     ]} 
     />

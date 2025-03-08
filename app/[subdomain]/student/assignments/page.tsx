@@ -4,7 +4,6 @@ import { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AnswerStudentAssignment from './AnswerStudentAssignment';
 import StudentAssignments from './StudentAssignments';
-// import EditStudentSubmittedAssignment from './EditStudentSubmittedAssigment';
 import StudentSubmissions from './StudentSubmissions';
 import EditSubmission from './EditSubmission';
 

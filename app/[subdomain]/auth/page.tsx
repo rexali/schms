@@ -1,9 +1,10 @@
-'use client'
+'use client';
+
 import { useState } from "react";
-import { DynamicHorizontalMenu } from "../components/menu/HorizontalMenu";
+import { HorizontalMenuDesktopMobile } from "../components/menu/HorizontalMenu";
 import LoginPage from "./login/page";
 
-export default function AuthPage(params: any) {
+export default function AuthPage(props: any) {
     let [tabName, setTabName] = useState('student');
 
     const openTab = (tabname: any) => {
@@ -11,10 +12,10 @@ export default function AuthPage(params: any) {
     }
 
     return (
-        <div>
+        <div className="mt-5">
             <p>Please fill in this form to log in.</p>
             <hr />
-            <DynamicHorizontalMenu openTab={openTab} tabNames={['student', 'teacher', 'administrator', 'parent']} />
+            <HorizontalMenuDesktopMobile openTab={openTab} tabNames={['student', 'teacher', 'administrator', 'parent']} />
             <br />
             <div className="tab-content well">
                 <div className="tab-pane active" id={'pane'}>

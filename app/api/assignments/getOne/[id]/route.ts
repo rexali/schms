@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { assignments } from "../../../db/db";
+import { assignments } from "@/db/db";
 
 export async function GET(request: Request, { params }: { params: { id: string } }) {
     const id = params.id;  //ByswAbi51l

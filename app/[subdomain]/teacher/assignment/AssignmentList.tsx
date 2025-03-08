@@ -3,8 +3,8 @@ import { Delete, Edit,} from "@mui/icons-material";
 import ListGroup from 'react-bootstrap/ListGroup';
 import styles from "./assignment.module.css";
 import { useEffect, useState } from "react";
-import DeleleModal from "../components/delete-modal";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import DeleleModal from "../../components/common/delete-modal";
 
 
 function AssignmentList(props: any) {
@@ -37,7 +37,7 @@ function AssignmentList(props: any) {
                     if ((index % 2 === 0)) {
                         return (
                             <ListGroup.Item action variant="secondary" className={styles.spacebetw} key={index}>
-                                <span className="text-truncate" style={{maxWidth:'150px'}} onClick={() => { props.setView(true); props.setAssignmentId(assignment.id) }}>{assignment.topic}</span> <span><span onClick={() => setModal(true)}><Delete /></span> &nbsp;  &nbsp; &nbsp; <span onClick={() => { props.setEdit(true); props.setAssignmentId(assignment.id) }}><Edit /></span></span>
+                                <span className="text-truncate" style={{maxWidth:'150px'}} onClick={() => { props.setEdit(true); props.setAssignmentId(assignment.id) }}>{assignment.topic}</span> <span><span onClick={() => setModal(true)}><Delete /></span> &nbsp;  &nbsp; &nbsp; <span onClick={() => { props.setEdit(true); props.setAssignmentId(assignment.id) }}><Edit /></span></span>
                                 {modal && <DeleleModal cb={async () => await deleteCallback(assignment.id)} closeCallback={setModal} />}
                             </ListGroup.Item>
                         )

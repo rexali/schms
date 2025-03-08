@@ -1,4 +1,4 @@
-import { assignments } from "@/app/api/db/db";
+import { assignments } from "@/db/db";
 import { NextResponse } from "next/server";
 
 export async function PATCH(request: Request, { params }: { params: { id: string } }) {

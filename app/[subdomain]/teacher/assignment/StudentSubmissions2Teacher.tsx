@@ -3,7 +3,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import styles from "./assignment.module.css";
 import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import DeleleModal from "../../teacher/components/delete-modal";
+import DeleleModal from '../../components/common/delete-modal';
 
 
 function StudentSubmissions2Teacher(props: any) {

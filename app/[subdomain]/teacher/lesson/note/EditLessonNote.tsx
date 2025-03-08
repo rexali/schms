@@ -1,11 +1,20 @@
+import Close from "@mui/icons-material/Close";
 
-export default function AddLesson(props: any) {
+export default function EditLessonNote(props: any) {
 
     return (
         <form className='w-100 m-auto'>
 
-            <h2 className="h3 mb-3 fw-normal bg-light p-2">Add a lesson</h2>
+            <h2 className="h3 mb-3 fw-normal bg-light p-2 d-flex flex-row justify-content-between">Edit a lesson note <button className="btn btn-success" onClick={() => props.setEdit(false)}><Close /> close</button></h2>
             <div className="row">
+
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label htmlFor="topic">Subject</label>
+                        <input type="text" name='subject' className="form-control" id="subject" autoComplete='questions' />
+                    </div>
+                </div>
+
                 <div className="col-md-6">
                     <div className="form-group">
                         <label htmlFor="topic">Topic</label>
@@ -22,37 +31,39 @@ export default function AddLesson(props: any) {
 
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label htmlFor="quest">Instructional Materials</label>
-                        <textarea name="instructionalMaterials" id="previousKnowledge" className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="quest">Materials</label>
+                        <textarea name="materials" id="material" className="form-control" rows={5} autoComplete='text'></textarea>
                     </div>
                 </div>
 
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label htmlFor="quest">Previous Knowledge</label>
-                        <textarea name="previousKnowledge" id="previousKnowledge" className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="quest">Pre-requisite</label>
+                        <textarea name="prerequisite" id="prerequisite" className="form-control" rows={5} autoComplete='text'></textarea>
                     </div>
                 </div>
 
                 <div className="col-md-6">
                     <div className="form-group">
-                        <label htmlFor="quest">Objectives</label>
-                        <textarea name="objectives" id="objectives" className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="quest">Introduction</label>
+                        <textarea name="introduction" id="introduction" className="form-control" rows={5} autoComplete='text'></textarea>
                     </div>
                 </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="quest">Presentation</label>
-                        <textarea name="presentaion" id="presentation" className="form-control" rows={5} autoComplete='text'></textarea>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="instru">Class Work</label>
-                        <textarea name="classwork" id="classwork" className="form-control" rows={5} autoComplete='text'></textarea>
-                    </div>
 
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label htmlFor="quest">Description</label>
+                        <textarea name="description" id="description" className="form-control" rows={5} autoComplete='text'></textarea>
+                    </div>
                 </div>
+
+                <div className="col-md-6">
+                    <div className="form-group">
+                        <label htmlFor="instru">Conclusion</label>
+                        <textarea name="conclusion" id="conclusion" className="form-control" rows={5} autoComplete='text'></textarea>
+                    </div>
+                </div>
+
             </div>
 
             <div className='text-center'>

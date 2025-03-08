@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { assignments } from "../../db/db";
+import { assignments } from "@/db/db";
 
 export async function GET(request: NextRequest) {
     const page_str = request.nextUrl.searchParams.get("page");

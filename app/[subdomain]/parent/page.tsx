@@ -6,10 +6,11 @@ export default async function AdminisitratorPage({ params }: { params: Promise<{
     subdomain={subdomain} 
     tabNames={[
         "Assignments", 
-        "Grades",
         "Attendance", 
-        "Communication", 
-        'Reports'
+        "Messages",
+        "Events", 
+        'Reports',
+        'Lessons',
     ]} 
     />
 }

@@ -5,6 +5,13 @@ import { DynamicHorizontalMenu } from "../../components/menu/HorizontalMenu";
 import VerticalMenu from "../../components/menu/VerticalMenu";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import StudentAssignmentPage from "../assignments/page";
+import StudentLessons from "../lessons/page";
+import StudentActivities from "../activities/page";
+import StudentAssessments from "../assessments/page";
+import StudentExams from "../exams/page";
+import StudentReportSheet from "../reports/page";
+// import StudentAttendance from "../attendance/page";
+import ParentComponent from "../attendance/ParentComponent";
 
 export default function TeacherDashboard(props: any) {
     let [tabName, setTabName] = useState('attendance');
@@ -60,14 +67,15 @@ export default function TeacherDashboard(props: any) {
                             <p>Welcome to Student Dashboard</p>
                         </div>
                         <div className="tab-pane active" id={tabName}>
-                            {tabName === 'reports' ? <div>Reports:grade,attendance,assignment</div> : ''}
-                            {tabName === 'attendance' ? <div>Register:attendance</div> : ''}
-                            {tabName === 'class' ? <div>Students: section, class etc</div> : ''}
-                            {tabName === 'lesson' ? <div>View lesson, lesson activities etc</div> : ''}
-                            {tabName === 'activities' ? <div>Class activities or works etc</div> : ''}
-                            {tabName === 'assesments' ? <div>Assesments, tests etc</div> : ''}
-                            {tabName === 'assignment' ? <StudentAssignmentPage /> : ''}
-                            {tabName === 'exams' ? <div>Exams</div> : ''}
+                            {tabName === 'reports' ? <div><StudentReportSheet /></div> : ''}
+                            {/* {tabName === 'attendance' ? <div><StudentAttendance /></div> : ''} */}
+                            {tabName === 'attendance' ? <div><ParentComponent  /></div> : ''}
+
+                            {tabName === 'lessons' ? <div><StudentLessons/></div> : ''}
+                            {tabName === 'activities' ? <div><StudentActivities /></div> : ''}
+                            {tabName === 'assessments' ? <div><StudentAssessments /></div> : ''}
+                            {tabName === 'assignments' ? <StudentAssignmentPage /> : ''}
+                            {tabName === 'exams' ? <div><StudentExams/></div> : ''}
                         </div>
                     </div>
                 </div>

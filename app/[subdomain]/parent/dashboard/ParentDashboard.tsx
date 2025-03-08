@@ -4,6 +4,13 @@ import { useState } from "react";
 import VerticalMenu from "../../components/menu/VerticalMenu";
 import { DynamicHorizontalMenu } from "../../components/menu/HorizontalMenu";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import MessagesPage from "../messages/page";
+import EventsPage from "../events/page";
+import StudentAssignmentPage from "../../student/assignments/page";
+import StudentAttendance4ParentPage from "../attendance/page";
+import StudentAssignments4ParentPage from "../assignments/page";
+import StudentLessonNotes4ParentPage from "../lessons/page";
+import StudentReport4ParentPage from "../reports/page";
 
 
 export default function ParentDashboard(props: any) {
@@ -63,11 +70,12 @@ export default function ParentDashboard(props: any) {
                         </div>
                     
                         <div className="tab-pane active" id={tabName}>
-                            {tabName === 'assignments' ? <div className="container">Assignments etc</div> : ''}
-                            {tabName === 'attendance' ? <div className="container">Attendance</div> : ''}
-                            {tabName === 'grades' ? <div className="container">Grades</div> : ''}
-                            {tabName === 'communication' ? <div className="container">Messages</div> : ''}
-                            {tabName === 'reports' ? <div className="container">Lesson Note</div> : ''}
+                            {tabName === 'assignments' ? <div className="container"><StudentAssignments4ParentPage /></div> : ''}
+                            {tabName === 'attendance' ? <div className="container"><StudentAttendance4ParentPage /></div> : ''}
+                            {tabName === 'messages' ? <div className="container"><MessagesPage /></div> : ''}
+                            {tabName === 'events' ? <div className="container"><EventsPage/></div> : ''}
+                            {tabName === 'lessons' ? <div className="container"><StudentLessonNotes4ParentPage /></div> : ''}
+                            {tabName === 'reports' ? <div className="container"><StudentReport4ParentPage /> </div> : ''}
                         </div>
                     </div>
                 </div>

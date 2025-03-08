@@ -1,3 +1,4 @@
+import AuthPage from './auth/page';
 import Dashboard from './Dashboard';
 import './globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -5,9 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 export default async function SubdomainPage({ params }: { params: Promise<{ subdomain: string }> }) {
   const { subdomain } = await params;
   console.log('SubdomainPage: Rendering page for subdomain:', subdomain)
-  try {
-    
-    return <Dashboard subdomain={subdomain} />
+  try { 
+    return <AuthPage subdomain={subdomain} />
   } catch (error) {
     console.error('SubdomainPage: Error fetching tenant:', error)
     return (

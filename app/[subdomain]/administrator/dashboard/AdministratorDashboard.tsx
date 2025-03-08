@@ -4,6 +4,17 @@ import { useState } from "react";
 import VerticalMenu from "../../components/menu/VerticalMenu";
 import { DynamicHorizontalMenu } from "../../components/menu/HorizontalMenu";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import StudentsTable from "../students/page";
+import AddStudent from "../students/AddStudent";
+import AddStaff from "../staff/AddStaff";
+import AddApplicant from "../applicants/AddApplicant";
+import AddSchedule from "../schedules/page";
+import ClassesList from "../classes/page";
+import EventsList from "../events/page";
+import StudentReportSheet from "../reports/page";
+import AddReport from "../reports/AddReport";
+import MessagesList from "../messages/page";
+import LessonPlans from "../lessons/page";
 
 
 export default function AdministratorDashboard(props: any) {
@@ -62,18 +73,19 @@ export default function AdministratorDashboard(props: any) {
                             <p>Welcome to Admin Dashboard</p>
                         </div>
                         <div className="tab-pane active" id={tabName}>
-                            {tabName === 'students' ? <div className="container">Students: section, class etc</div> : ''}
-                            {tabName === 'staff' ? <div>Staff</div> : ''}
-                            {tabName === 'classes' ? <div>Classes</div> : ''}
-                            {tabName === 'lessons' ? <div>Lesson Note</div> : ''}
-                            {tabName === 'questions' ? <div>Teacher:questions</div> : ''}
-                            {tabName === 'schedules' ? <div>Teacher:schedules</div> : ''}
+                            {tabName === 'students' ? <div className="container"><AddStudent/></div> : ''}
+                            {tabName === 'staff' ? <div className="conatiner"><AddStaff /></div> : ''}
+                            {tabName === 'applicants' ? <div className="conatiner"><AddApplicant /></div> : ''}
+                            {tabName === 'classes' ? <div className="container"><ClassesList/></div> : ''}
+                            {tabName === 'lessons' ? <div><LessonPlans/></div> : ''}
+                            {tabName === 'questions' ? <div><AddReport /></div> : ''}
+                            {tabName === 'schedules' ? <div><AddSchedule/></div> : ''}
                             {tabName === 'attendance' ? <div>Teacher:attendance</div> : ''}
-                            {tabName === 'reports' ? <div>Report</div> : ''}
-                            {tabName === 'extra' ? <div>Extra Classes</div> : ''}
+                            {tabName === 'reports' ? <div className="conatiner"><StudentReportSheet/></div> : ''}
+                            {tabName === 'events' ? <div className="container"><EventsList /></div> : ''}
                             {tabName === 'admissions' ? <div>Admission: applicant, admitted students</div> : ''}
                             {tabName === 'fees' ? <div>Fee</div> : ''}
-                            {tabName === 'messages' ? <div>Messages</div> : ''}
+                            {tabName === 'messages' ? <div><MessagesList /></div> : ''}
                             {tabName === 'pta' ? <div>PTA</div> : ''}
                         </div>
                     </div>
@@ -82,3 +94,4 @@ export default function AdministratorDashboard(props: any) {
         </div>
     )
 }
+

@@ -1,7 +1,7 @@
-import { assignments } from '@/app/api/db/db';
+import { assignments } from '@/db/db';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
 
     try {
         const { topic, question, instruction } = await request.json();

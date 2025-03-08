@@ -40,7 +40,7 @@ export default function AssignmentPage(props: any) {
                         <AddAssignment setList={setList} />
                     </div>
                     <div className="col-sm-12 col-md-6">
-                        <h1 className="h3 mb-3 fw-normal bg-light p-2">Your assignments</h1>
+                        <h1 className="h3 mb-3 fw-normal bg-light p-2">Assignments</h1>
                         <AssignmentList
                             setEdit={setEdit}
                             setView={setView}

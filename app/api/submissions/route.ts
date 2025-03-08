@@ -1,4 +1,4 @@
-import { submissions } from '@/app/api/db/db';
+import { submissions } from '@/db/db';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
