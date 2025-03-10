@@ -200,7 +200,7 @@ export default function EditAttendancePage(props: any) {
                                                             id={`afternoon${student.id}`}
                                                         />
                                                     </td>
-                                                )
+                                                 )
                                             })
                                         }
 

@@ -19,7 +19,7 @@ if (process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
     /**
      * Connect to MongoDB: Local MongoDb Connection
      */
-    mongoose.connect("mongodb://localhost:27017/edudb", {}).then(() => {
+    mongoose.connect("mongodb://localhost:27017/schmsdb", {}).then(() => {
         console.log("Local connection to Mongodb successful");
     }).catch(err => {
         console.warn(err);

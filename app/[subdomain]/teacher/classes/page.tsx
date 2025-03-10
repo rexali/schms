@@ -1,26 +1,29 @@
-import { useState } from "react"
+'use client';
+
+import { useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function TeacherClasses() {
 
 
-    const [clasxs, setClasxs] = useState([{
+    const [schClasses, setSchClasses] = useState([{
         id: 1,
-        class: 'JSS2',
-        classTeacher: 'Beell',
-        classCaptain: "Mane",
-        subject: 'Math',
-        time: "8:30am",
-        day: "Wed"
+        section: 'primary',
+        class: 'JSS 1',
+        teacher: 'Beell',
+        captain: "Mane",
+        description: 'a saphire class known for hardwork'
     }]);
 
-    const [clasx, setClasx] = useState({
+    const [schClass, setSchClass] = useState({
         id: 0,
+        section: '',
         class: '',
-        classTeacher: '',
-        classCaptain: "",
-        subject: '',
-        time: "",
-        day: ""
+        teacher: '',
+        captain: "",
+        description: ''
+
     });
 
 
@@ -34,59 +37,54 @@ export default function TeacherClasses() {
     }
 
     function addClassChange(event: { target: { name: string, value: string } }): void {
-        setClasx({ ...clasx, id: clasxs.length + 1, [event.target.name]: event.target.value })
+        setSchClass({ ...schClass, id: schClasses.length + 1, [event.target.name]: event.target.value })
     }
 
     function addClass(): void {
-        setClasxs([...clasxs, clasx]);
+        setSchClasses([...schClasses, schClass]);
     }
 
     return (
-        <div>
+        <div className="container">
             <form>
                 <h1>Classes</h1>
                 <div className='row'>
 
                     <div className='col-md-3'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Class</label>
-                            <input type="text" name='class' onChange={addClassChange} className="form-control" id="class" autoComplete='questions' />
+                        <div className="form-floating">
+                            <input type="text" name='class' onChange={addClassChange} placeholder="e.g. JSS 1 etc" className="form-control" id="class" autoComplete='questions' />
+                            <label htmlFor="name">Class Division</label>
                         </div>
                     </div>
 
                     <div className='col-md-3'>
-                        <div className="form-floatin">
+                        <div className="form-floating">
+                            <input type="text" name='section' onChange={addClassChange} placeholder="e.g. Primary etc" className="form-control" id="class" autoComplete='questions' />
+                            <label htmlFor="name">Class Section</label>
+                        </div>
+                    </div>
+
+
+                    <div className='col-md-3'>
+                        <div className="form-floating">
+                            <input type='text' name='teacher' onChange={addClassChange} className="form-control" id="teacher" autoComplete='questions' />
                             <label htmlFor="name">Class Teacher</label>
-                            <input type='text' name='classTeacher' onChange={addClassChange} className="form-control" id="classTeacher" autoComplete='questions' />
                         </div>
                     </div>
                     <div className='col-md-3'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Captain</label>
-                            <input type="text" name='classCaptain' onChange={addClassChange} className="form-control" id="captain" autoComplete='questions' />
+                        <div className="form-floating">
+                            <input type="text" name='captain' onChange={addClassChange} className="form-control" id="captain" autoComplete='questions' />
+                            <label htmlFor="name">Class Captain</label>
                         </div>
                     </div>
 
-                    <div className='col-md-3'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Subject</label>
-                            <input type='text' name='subject' onChange={addClassChange} className="form-control" id="subject" autoComplete='questions' />
+                    <div className='col-md-12 mt-2'>
+                        <div className="form-floating">
+                            <textarea name='description' onChange={addClassChange} className="form-control" id="description" autoComplete='questions' ></textarea>
+                            <label htmlFor="name">Description</label>
                         </div>
                     </div>
 
-                    <div className='col-md-3'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Time</label>
-                            <input type="time" name='time' onChange={addClassChange} className="form-control" id="time" autoComplete='questions' />
-                        </div>
-                    </div>
-
-                    <div className='col-md-3'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Day</label>
-                            <input type='day' name='day' onChange={addClassChange} className="form-control" id="day" autoComplete='questions' />
-                        </div>
-                    </div>
                 </div>
 
                 <div className='text-center'>
@@ -100,29 +98,27 @@ export default function TeacherClasses() {
                     <thead className="thead-dark">
                         <tr>
                             <th>S/N</th>
-                            <th>Class</th>
-                            <th>Teacher</th>
+                            <th>Class Level</th>
+                            <th>Section</th>
+                            <th>Description</th>
                             <th>Captain</th>
-                            <th>Time</th>
-                            <th>Subject</th>
-                            <th>Day</th>
-                            <th colSpan={2}>Action</th>
+                            <th>Teacher</th>
+                            <th colSpan={2} className="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            clasxs.map((clasx) => {
+                            schClasses.map((schClass) => {
 
                                 return (
-                                    <tr key={clasx.id}>
-                                        <td>{clasx.id}</td>
-                                        <td>{clasx.class}</td>
-                                        <td>{clasx.classTeacher}</td>
-                                        <td>{clasx.classCaptain}</td>
-                                        <td>{clasx.time}</td>
-                                        <td>{clasx.subject}</td>
-                                        <td>{clasx.day}</td>
-                                        <th><button className="btn btn-primary" onClick={() => {setIsEditing(true);setSelectedClass(clasx.id);}}>Edit</button> <button className="btn btn-primary">Delete</button></th>
+                                    <tr key={schClass.id}>
+                                        <td>{schClass.id}</td>
+                                        <td>{schClass.class}</td>
+                                        <td>{schClass.section}</td>
+                                        <td>{schClass.description}</td>
+                                        <td>{schClass.captain}</td>
+                                        <td>{schClass.teacher}</td>
+                                        <th className="d-flex justify-content-around"><button className="btn btn-primary" onClick={() => { setIsEditing(true); setSelectedClass(schClass.id); }}>Edit</button> <button className="btn btn-primary">Delete</button></th>
                                     </tr>
                                 )
                             })
@@ -137,59 +133,53 @@ export default function TeacherClasses() {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title">Edit Class</h5>
+                                <h5 className="modal-title">Edit a class</h5>
                                 <button type="button" className="btn-close" onClick={() => setIsEditing(false)}></button>
                             </div>
                             <div className="modal-body">
 
                                 <form>
-                                    <h1>Classes</h1>
                                     <div className='row'>
 
                                         <div className='col-md-3'>
-                                            <div className="form-floatin">
-                                                <label htmlFor="name">Class</label>
-                                                <input type="text" name='class' defaultValue={clasxs.filter(cl=>cl.id===selectedClass)[0].class} onChange={addClassChange} className="form-control" id="class" autoComplete='questions' />
+                                            <div className="form-floating">
+                                                <input type="text" name='class' onChange={addClassChange} placeholder="e.g. JSS 1 etc" className="form-control" id="class" autoComplete='questions' />
+                                                <label htmlFor="name">Class Division</label>
                                             </div>
                                         </div>
 
                                         <div className='col-md-3'>
-                                            <div className="form-floatin">
+                                            <div className="form-floating">
+                                                <input type="text" name='section' onChange={addClassChange} placeholder="e.g. Primary etc" className="form-control" id="class" autoComplete='questions' />
+                                                <label htmlFor="name">Class Section</label>
+                                            </div>
+                                        </div>
+
+
+                                        <div className='col-md-3'>
+                                            <div className="form-floating">
+                                                <input type='text' name='teacher' onChange={addClassChange} className="form-control" id="teacher" autoComplete='questions' />
                                                 <label htmlFor="name">Class Teacher</label>
-                                                <input type='text' name='classTeacher' onChange={addClassChange} className="form-control" id="classTeacher" autoComplete='questions' />
                                             </div>
                                         </div>
                                         <div className='col-md-3'>
-                                            <div className="form-floatin">
-                                                <label htmlFor="name">Captain</label>
-                                                <input type="text" name='classCaptain' onChange={addClassChange} className="form-control" id="captain" autoComplete='questions' />
+                                            <div className="form-floating">
+                                                <input type="text" name='captain' onChange={addClassChange} className="form-control" id="captain" autoComplete='questions' />
+                                                <label htmlFor="name">Class Captain</label>
                                             </div>
                                         </div>
 
-                                        <div className='col-md-3'>
-                                            <div className="form-floatin">
-                                                <label htmlFor="name">Subject</label>
-                                                <input type='text' name='subject' onChange={addClassChange} className="form-control" id="subject" autoComplete='questions' />
+                                        <div className='col-md-12 mt-2'>
+                                            <div className="form-floating">
+                                                <textarea name='description' onChange={addClassChange} className="form-control" id="description" autoComplete='questions' ></textarea>
+                                                <label htmlFor="name">Description</label>
                                             </div>
                                         </div>
 
-                                        <div className='col-md-3'>
-                                            <div className="form-floatin">
-                                                <label htmlFor="name">Time</label>
-                                                <input type="time" name='time' onChange={addClassChange} className="form-control" id="time" autoComplete='questions' />
-                                            </div>
-                                        </div>
-
-                                        <div className='col-md-3'>
-                                            <div className="form-floatin">
-                                                <label htmlFor="name">Day</label>
-                                                <input type='day' name='day' onChange={addClassChange} className="form-control" id="day" autoComplete='questions' />
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <div className='text-center'>
-                                        <button className="btn btn-primary w-25 py-2 my-2" onClick={addClass} type="button">Update</button>
+                                        <button className="btn btn-primary w-25 py-2 my-2" onClick={addClass} type="button">Submit</button>
                                     </div>
                                 </form>
                             </div>

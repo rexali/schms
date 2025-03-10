@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function AttendancePage(props: any) {
     const [weeks] = useState(['WEEK 1', 'WEEK 2', 'WEEK 3', 'WEEK 4', 'WEEK 5', 'WEEK 6']);
     const [dayx] = useState(['MON', 'TUE', 'WED', 'THU', 'FRI']);
     const [terms] = useState(['FIRST', 'SECOND', 'THIRD']);
-
 
     const [attendance, setAttendance] = useState({
         session: "",
@@ -66,13 +65,38 @@ export default function AttendancePage(props: any) {
         const time = name.split('-')[1];
 
         setAttendance(c => {
-            return { ...c, students: c.students.map((student) => student.id === Number(id) ? { ...student, days: student.days.map((day) => day.day === dy ? { ...day, [time]: value } : day), weeklyTotal: getStudentWeeklyAttendance(student.id) } : student) }
+            return {
+                ...c,
+                students: c.students.map((student) => student.id === Number(id) ? { ...student, days: student.days.map((day) => day.day === dy ? { ...day, [time]: value } : day) } : student)
+            }
+        });
+
+        setAttendance(c => {
+            return {
+                ...c,
+                students: c.students.map((student) => student.id === Number(id) ? { ...student, weeklyTotal:getStudentWeeklyAttendance(student.id)+1} : student)
+            }
         });
     }
 
-    function getStudentWeeklyAttendance(studentId: any) {
-        let weeklyTotal = attendance.students.filter(student => student.id === studentId).map(student => student.days.filter(day => day.morning === 'on'))[0].length +
-            attendance.students.filter(student => student.id === studentId).map(student => student.days.filter(day => day.afternoon === 'on'))[0].length;
+    function setStudentWeeklyAttendance(studentId: number) {
+        const weeklyTotal = getStudentWeeklyAttendance(studentId);
+        setAttendance(c => {
+            return {
+                ...c,
+                students: c.students.map((student) => student.id === Number(studentId) ? { ...student, weeklyTotal } : student)
+            }
+        });
+    }
+
+    const getStudentWeeklyAttendance = (studentId: any) => {
+        let weeklyTotal = attendance.students
+            .filter(student => student.id === studentId)
+            .map(student => student.days.filter(day => day.morning === 'on'))[0].length +
+            attendance.students
+                .filter(student => student.id === studentId)
+                .map(student => student.days.filter(day => day.afternoon === 'on'))[0].length;
+
         return weeklyTotal;
     }
 
@@ -170,6 +194,7 @@ export default function AttendancePage(props: any) {
                                                             onChange={(e) => {
                                                                 if (e.currentTarget && e.currentTarget.value === "off") {
                                                                     setStudentAttendance(student.id, day.day + '-morning', "on");
+
                                                                 } else {
                                                                     setStudentAttendance(student.id, day.day + '-morning', "off");
                                                                 }
@@ -227,15 +252,44 @@ export default function AttendancePage(props: any) {
                             ))}
                             <tr>
                                 <td>Total</td>
-                                <td>{getDailyMorningTotal('mon') + getDailyMorningTotal('tue') + getDailyMorningTotal('wed') + getDailyMorningTotal('thu') + getDailyMorningTotal('fri')}</td>
-                                <td>{getDailyAfternoonTotal('mon') + getDailyAfternoonTotal('tue') + getDailyAfternoonTotal('wed') + getDailyAfternoonTotal('thu') + getDailyAfternoonTotal('fri')}</td>
+                                <td>
+                                    {
+                                        getDailyMorningTotal('mon') +
+                                        getDailyMorningTotal('tue') +
+                                        getDailyMorningTotal('wed') +
+                                        getDailyMorningTotal('thu') +
+                                        getDailyMorningTotal('fri')
+                                    }
+                                </td>
+                                <td>
+                                    {
+                                        getDailyAfternoonTotal('mon') +
+                                        getDailyAfternoonTotal('tue') +
+                                        getDailyAfternoonTotal('wed') +
+                                        getDailyAfternoonTotal('thu') +
+                                        getDailyAfternoonTotal('fri')
+                                    }
+                                </td>
                             </tr>
                             <tr>
                                 <td>Percent %</td>
                                 <td>
                                     {
-                                        (((getDailyMorningTotal('mon') + getDailyMorningTotal('tue') + getDailyMorningTotal('wed') + getDailyMorningTotal('thu') + getDailyMorningTotal('fri') +
-                                            getDailyAfternoonTotal('mon') + getDailyAfternoonTotal('tue') + getDailyAfternoonTotal('wed') + getDailyAfternoonTotal('thu') + getDailyAfternoonTotal('fri'))) / (attendance.students.length * 5 * 2)) * 100 + " %"
+                                        (((
+                                            getDailyMorningTotal('mon') +
+                                            getDailyMorningTotal('tue') +
+                                            getDailyMorningTotal('wed') +
+                                            getDailyMorningTotal('thu') +
+                                            getDailyMorningTotal('fri') +
+
+                                            getDailyAfternoonTotal('mon') +
+                                            getDailyAfternoonTotal('tue') +
+                                            getDailyAfternoonTotal('wed') +
+                                            getDailyAfternoonTotal('thu') +
+                                            getDailyAfternoonTotal('fri')
+                                        ))
+                                            /
+                                            (attendance.students.length * 5 * 2)) * 100 + " %"
 
                                     }
                                 </td>
