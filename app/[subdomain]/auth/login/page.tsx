@@ -8,23 +8,58 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage(props: any) {
     const roleRef = useRef<any>(props.role);
+    const [status, setStatus] = useState('');
     const [logInData, setLogInData] = useState({
         email: '',
         password: '',
         role: roleRef.current,
         rememberMe: ''
     });
-    const router = useRouter();
 
+    const router = useRouter();
 
     function logInChange(e: { target: { name: string, value: string } }) {
         setLogInData({ ...logInData, [e.target.name]: e.target.value })
     }
 
-    const logInUser = () => {
-        console.log(logInData);
+    const logInUser = async () => {
 
-        router.push(`/${logInData.role}`)
+        setStatus('Sending data...');
+
+        let response = await fetch('/api/auth/login', {
+            mode: 'cors',
+            method: "POST",
+            body: JSON.stringify({ ...logInData })
+        }
+        ).then(res => res.json());
+
+        if (response.status === 'success') {
+
+            setStatus('Verifying data...');
+
+            window.localStorage.setItem('token', response.data.token);
+
+            let response2 = await fetch('/api/auth/verify', {
+                mode: 'cors',
+                method: "POST",
+                body: JSON.stringify({ token: response.data.token }),
+                headers: {
+                    'Authorization': 'Bearer ' + response.data.token
+                }
+            }).then(res => res.json());
+
+            if (response2.data.token && response2.data.role === logInData.role) {
+
+                setStatus('Success! Please wait');
+
+                setTimeout(() => {
+                    router.push(`/${response2.data.role}`)
+                }, 2000);
+            } else {
+                setStatus('Check and select the appropriate tab above! ');
+                router.push(`/`)
+            }
+        }
 
     }
 
@@ -54,6 +89,7 @@ export default function LoginPage(props: any) {
                     </span>
                     <span className="psw">Forgot <a href="#">password?</a></span>
                 </div>
+                <p className="text-center text-success">{status}</p>
                 <button className="btn btn-primary w-100 py-2" onClick={() => logInUser()} type="button">Sign in</button>
                 <p>Don&apos;t have an account, sign up <Link href={"/auth/account"}>here</Link> </p>
                 <p className="mt-5 mb-3 text-body-secondary">&copy; 2017–2024</p>

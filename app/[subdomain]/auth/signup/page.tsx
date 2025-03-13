@@ -6,23 +6,38 @@ import { useRouter } from "next/navigation";
 
 export default function SignupPage(props: any) {
     const roleRef = useRef<any>(props.role);
+    const [status, setStatus] = useState('');
     const [signUpData, setSignUpData] = useState({
         email: '',
         password: '',
         role: roleRef.current,
-        rememberMe:''
     });
-    const router = useRouter();
     
+    const router = useRouter();
+
     function signUpChange(e: { target: { name: string, value: string } }) {
         setSignUpData({ ...signUpData, [e.target.name]: e.target.value })
     }
 
-    const signUpUser = () => {
-        console.log(signUpData);
-        router.push('/auth')
-        
+    const signUpUser = async () => {
+
+        setStatus('Sending data...');
+
+        let response = await fetch('/api/auth/register', {
+            mode: 'cors',
+            method: "POST",
+            body: JSON.stringify({ ...signUpData })
+        }
+        ).then(res => res.json());
+
+        if (response.status === 'success') {
+            setStatus('success');
+            setTimeout(() => {
+                router.push('/auth')
+            }, 2000);
+        }
     }
+
     return (
         <main className="form-signin mt-5">
             <form className='w-50 m-auto'>
@@ -46,16 +61,7 @@ export default function SignupPage(props: any) {
                     <label htmlFor="floatingPassword">Confirm Password</label>
                     <input name="role" ref={roleRef} defaultValue={props.role} hidden />
                 </div>
-
-                <div className="form-check text-start my-3 d-flex flex-row justify-content-between">
-                    <span>
-                        <input className="form-check-input" name="rememberMe" checked={signUpData.rememberMe === 'on' ? true : false}  onChange={signUpChange} type="checkbox" id="flexCheckDefault" autoComplete='check' />
-                        <label className="form-check-label" htmlFor="flexCheckDefault">
-                            Remember me
-                        </label>
-                    </span>
-                    <span className="psw">Forgot <a href="#">password?</a></span>
-                </div>
+                <p className="text-center text-success">{status}</p>
                 <button className="btn btn-primary w-100 py-2" onClick={signUpUser} type="button">Sign up</button>
                 <p>By creating an account you agree to our <a href="#" style={{ color: 'dodgerblue' }}>Terms & Privacy</a>.</p>
                 <p>Already have an account, log in <Link href="/auth" style={{ color: 'dodgerblue' }}>here</Link>.</p>

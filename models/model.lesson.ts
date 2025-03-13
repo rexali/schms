@@ -36,4 +36,4 @@ const lessonSchema = new Schema<Lesson>({
     
 });
 
-export default mongoose.models.Lesson || mongoose.model("Lesson", lessonSchema);
+export default mongoose.models.Lesson || mongoose.model("Lesson", lessonSchema); 

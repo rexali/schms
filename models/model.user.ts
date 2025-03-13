@@ -4,23 +4,23 @@ import { mongoose } from "../config/db";
 interface User {
     email: string;
     password: string;
+    role: string;
+    rememberMe: string;
     verificationCode: String; //parent's verificationCode
     verificationStatus: string;
-    teacher: Types.ObjectId;
-    parent: Types.ObjectId;
-    student: Types.ObjectId;
+    profile: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
 
 const userSchema = new Schema<User>({
-    email: { type: String },
-    password: { type: String },
+    email: { type: String, unique: true, required: true },
+    password: { type: String, required: true },
+    role: { type: String, required: true },
+    rememberMe: { type: String },
     verificationCode: { type: String },
     verificationStatus: { type: String },
-    teacher: { type: Schema.Types.ObjectId, ref: "Teacher" },
-    student: { type: Schema.Types.ObjectId, ref: "Student" },
-    parent: { type: Schema.Types.ObjectId, ref: "Parent" },
+    profile: { type: Schema.Types.ObjectId, ref: "Profile" },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
