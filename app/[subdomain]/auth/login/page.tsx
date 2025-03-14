@@ -49,7 +49,8 @@ export default function LoginPage(props: any) {
             }).then(res => res.json());
 
             if (response2.data.token && response2.data.role === logInData.role) {
-
+                window.sessionStorage.setItem('user', JSON.stringify(response2.data));
+    
                 setStatus('Success! Please wait');
 
                 setTimeout(() => {

@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QuestionsForm = (props: any) => {
+    const [status, setStatus] = useState('')
     const [questions, setQuestions] = useState({
         teacher: "",
         subject: "",
         class: "",
         term: "",
         year: "",
-        type:"",
+        type: "",
+        instruction: "",
         objectives: [{ id: 1, text: '', options: ['A. ', 'B. ', 'C. ', 'D. '], answer: '' }],
         theories: [{ id: 1, text: '', answer: '' }]
     });
@@ -54,14 +56,26 @@ const QuestionsForm = (props: any) => {
         setQuestions({ ...questions, theories: [...questions.theories, { id: questions.theories.length + 1, text: '', answer: '' }] });
     };
 
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        console.log('Submitted questions.questions:', questions);
+        console.log('Submitted questions.questions:', { ...questions, lesson: props.lessonId });
+
+        const questionResponse = await fetch('/api/questions', {
+            mode: 'cors',
+            method: "POST",
+            body: JSON.stringify({ ...questions, lesson: props.lessonId })
+        }).then(res => res.json());
+        if (questionResponse.status === 'success') {
+            setStatus(questionResponse.status)
+        } else {
+            setStatus(questionResponse.status + ": " + questionResponse.message)
+        }
     };
 
+    
     return (
         <div className="container mt-5">
-            <h2>{props.type} Questions</h2><br />
+            <h2 className='d-flex justify-content-between'>{props.type} Questions <button className='btn btn-success' onClick={() => props.setQuestion(false)}>Close</button></h2><br />
             <h3>Objectives</h3>
             <form onSubmit={handleSubmit}>
                 <div className='row'>
@@ -69,7 +83,7 @@ const QuestionsForm = (props: any) => {
                     <div className='col-md-3'>
                         <div className="mb-3">
                             <label className="form-label">Assessment Type</label>
-                            <select name="type" id="type" className="form-control"  onChange={handleOtherChange} required>
+                            <select name="type" id="type" className="form-control" onChange={handleOtherChange} >
                                 <option value="">Select</option>
                                 <option value="Examination">Examination</option>
                                 <option value="Continous Assessment">Continous Assessment</option>
@@ -78,7 +92,7 @@ const QuestionsForm = (props: any) => {
                                 <option value="Class Work">Class Work</option>
                             </select>
                         </div>
-                    </div> 
+                    </div>
 
                     <div className='col-md-3'>
                         <div className="mb-3">
@@ -89,7 +103,7 @@ const QuestionsForm = (props: any) => {
                                 name="subject"
                                 value={questions.subject}
                                 onChange={handleOtherChange}
-                                required
+
                             />
                         </div>
                     </div>
@@ -102,11 +116,11 @@ const QuestionsForm = (props: any) => {
                                 name="class"
                                 value={questions.class}
                                 onChange={handleOtherChange}
-                                required
+
                             />
                         </div>
                     </div>
-                    <div className='col-md-2'>
+                    <div className='col-md-3'>
 
                         <div className="mb-3">
                             <label className="form-label">Teacher</label>
@@ -116,11 +130,11 @@ const QuestionsForm = (props: any) => {
                                 name="teacher"
                                 value={questions.teacher}
                                 onChange={(e) => handleOtherChange(e)}
-                                required
+
                             />
                         </div>
                     </div>
-                    <div className='col-md-2'>
+                    <div className='col-md-3'>
 
                         <div className="mb-3">
                             <label className="form-label">Term</label>
@@ -130,11 +144,11 @@ const QuestionsForm = (props: any) => {
                                 name="term"
                                 value={questions.term}
                                 onChange={handleOtherChange}
-                                required
+
                             />
                         </div>
                     </div>
-                    <div className='col-md-2'>
+                    <div className='col-md-3'>
 
                         <div className="mb-3">
                             <label className="form-label">Year</label>
@@ -144,11 +158,26 @@ const QuestionsForm = (props: any) => {
                                 name="year"
                                 value={questions.year}
                                 onChange={handleOtherChange}
-                                required
+
+                            />
+                        </div>
+                    </div>
+
+                    <div className='col-md-6'>
+                        <div className="mb-3">
+                            <label className="form-label">Instruction</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="instruction"
+                                value={questions.instruction}
+                                onChange={handleOtherChange}
+
                             />
                         </div>
                     </div>
                 </div>
+
                 {questions?.objectives.map((question: any) => (
                     <div className="mb-3" key={question.id}>
                         <label htmlFor={`question${question.id}`} className="form-label">Question {question.id}</label>
@@ -211,7 +240,7 @@ const QuestionsForm = (props: any) => {
                 }
 
                 <button type="button" className="btn btn-secondary mb-3" onClick={addTheoryQuestion}>Add Question</button><br />
-
+                <p className='text-center text-success'>{status}</p>
                 <div className='text-center'>
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </div>

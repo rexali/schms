@@ -1,4 +1,6 @@
 import Lesson from '@/models/model.lesson';
+import Question from '@/models/model.question';
+
 import { NextRequest, NextResponse } from 'next/server';
 // import { lessons } from '@/config/db';
 
@@ -9,9 +11,12 @@ export async function POST(request: Request) {
 
         // const result = lessons.create({...data });
 
-        const lesson = Lesson.create({
+        const lesson = await Lesson.create({
             ...data
         });
+
+        await new Question({ lesson: lesson._id }).save();
+
 
         if (lesson !== null) {
             if (Object.keys(lesson)) {
@@ -79,7 +84,7 @@ export async function POST(request: Request) {
         let error_response = {
             data: null,
             status: "fail",
-            message: "Error! "+error.message,
+            message: "Error! " + error.message,
         };
 
         return new NextResponse(JSON.stringify(error_response), {
@@ -100,16 +105,16 @@ export async function GET(request: NextRequest) {
         const skip = (page - 1) * limit;
 
         // const result = lessons.list();
-        const lesson = await Lesson.find().exec();
-        if (lesson !== null) {
+        const lessons = await Lesson.find().exec();
+        if (lessons !== null) {
 
-            if (lesson.length) {
+            if (lessons.length) {
                 let json_response = {
                     status: "success",
                     message: 'Found!',
                     data: {
                         // result,
-                        lesson
+                        lessons
                     },
                 };
 

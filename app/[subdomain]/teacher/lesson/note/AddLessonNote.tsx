@@ -1,7 +1,8 @@
+import { set } from "mongoose"
 import { useState } from "react"
-import QuestionsForm from "../../questions/examinations/page"
 
 export default function AddLessonNote(props: any) {
+    const [status, setStatus] = useState('')
     const [lesson, setLesson] = useState({
         teacher: '',
         class: '',
@@ -21,9 +22,21 @@ export default function AddLessonNote(props: any) {
 
     const addDescriptionChange = (id: number, e: { target: { name: string, value: string }, currentTarget: any }) => {
         if (e.target.name === 'photo') {
-            setLesson({ ...lesson, descriptions: lesson.descriptions.map(description => description.id === Number(id) ? { ...description, [e.target.name]: e.target.value.split('\\').pop(), file: e.currentTarget.files[0] } : description) })
+            setLesson({
+                ...lesson,
+                descriptions: lesson.descriptions.map(description => description.id === Number(id) ? {
+                    ...description,
+                    [e.target.name]: e.target.value.split('\\').pop(),
+                    file: e.currentTarget.files[0]
+                } : description)
+            })
         } else {
-            setLesson({ ...lesson, descriptions: lesson.descriptions.map(description => description.id === Number(id) ? { ...description, [e.target.name]: e.target.value } : description) })
+            setLesson({
+                ...lesson,
+                descriptions: lesson.descriptions.map(description => description.id === Number(id) ? {
+                    ...description, [e.target.name]: e.target.value
+                } : description)
+            })
         }
     }
 
@@ -31,14 +44,25 @@ export default function AddLessonNote(props: any) {
         setLesson({ ...lesson, [e.target.name]: e.target.value })
     }
 
-
-    function addLesson(): void {
-        console.log(lesson);
-    }
-
     function removeStep(id: any): void {
         setLesson({ ...lesson, descriptions: lesson.descriptions.filter(description => description.id !== Number(id)) })
     }
+
+    async function addLesson(): Promise<void> {
+        setStatus('Adding lesson...');
+        console.log({ ...lesson, user: JSON.parse(window.sessionStorage.getItem('user') as string)._id });
+        let finalLesson = { ...lesson, user: JSON.parse(window.sessionStorage.getItem('user') as string)._id };
+        const lessonResponse = await fetch('/api/lessons',
+            {
+                method: "POST",
+                mode: 'cors',
+                body: JSON.stringify(finalLesson)
+            }).then(res => res.json());
+        if (lessonResponse.status) {
+            setStatus(lessonResponse.status + ": " + lessonResponse.message);
+        }
+    }
+
     return (
         <form className='w-100 m-auto'>
 
@@ -140,7 +164,7 @@ export default function AddLessonNote(props: any) {
             <div className="row">
                 <QuestionsForm type={'Assignment'} />
             </div> */}
-
+            <p className="text-center text-success">{status}</p>
             <div className='text-center'>
                 <button className="btn btn-primary w-100 py-2 my-2" type="button" onClick={addLesson}>Submit</button>
             </div>

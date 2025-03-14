@@ -3,9 +3,9 @@ import Lesson from "@/models/model.lesson";
 
 import { NextResponse } from "next/server";
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id as any;
+    const id = (await params).id as any;
 
     // const result = lessons.delete(id);
     const lesson = await Lesson.deleteOne({ _id: id }).exec();
@@ -62,13 +62,13 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
 }
 
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
 
   try {
 
-    const id = params.id;  //ByswAbi51l
+    const id = (await params).id;  //ByswAbi51l
     // const lesson = lessons.get(id);
-    const lesson = Lesson.findById(id).exec();
+    const lesson = await Lesson.findById(id).exec();
 
     if (lesson !== null) {
       if (!Object.keys(lesson).length) {
@@ -136,9 +136,9 @@ export async function GET(request: Request, { params }: { params: { id: string }
  * @param params url parameter object
  * @returns a json
  */
-export async function PATCH(request: Request, { params }: { params: { id: string } }) {
+export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const id = (await params).id;
     let json = await request.json();
 
     // const result = lessons.update({id, ...json});
@@ -160,7 +160,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
       return NextResponse.json(
         success_response,
         {
-          status: 204,
+          status: 200,
           headers: { "Content-Type": "application/json" }
         }
       );
@@ -169,7 +169,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
 
 
     let success_response = {
-      status: "failed",
+      status: "fail",
       message: 'update failed',
       data: {
         // result,
@@ -209,7 +209,7 @@ export async function PATCH(request: Request, { params }: { params: { id: string
     }
 
     let error_response = {
-      status: "error",
+      status: "fail",
       message: 'Internal Server! ' + error.message,
       data: null
     };

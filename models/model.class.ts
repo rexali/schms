@@ -14,9 +14,9 @@ interface Class {
 const classSchema = new Schema<Class>({
     class: { type: String },
     section: { type: String },
-    teacher: { type: Schema.Types.ObjectId, ref: "Teacher" }, // class teacher
+    teacher: { type: Schema.Types.ObjectId, ref: "Profile" }, // class teacher
     captain: { type: String }, // class captain
-    students: [{ type: Schema.Types.ObjectId, ref: "Student" }],
+    students: [{ type: Schema.Types.ObjectId, ref: "Profile" }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });
