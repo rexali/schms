@@ -26,9 +26,10 @@ type Psychomotor = {
 
 
 interface Report {
-    teacher: Types.ObjectId;
-    student: Types.ObjectId;
-    class: Types.ObjectId;
+    teacher: String;
+    student: String;
+    class: String;
+    user: Types.ObjectId;
     term: String;
     examsNumber: string;
     year: String;
@@ -64,12 +65,13 @@ const psychomotorSchema = new Schema<Psychomotor>({
 });
 
 const reportSchema = new Schema<Report>({
-    teacher: { type: Schema.Types.ObjectId, ref: 'Teacher' },
-    student: { type: Schema.Types.ObjectId, ref: 'Student' },
-    class: { type: Schema.Types.ObjectId, ref: 'Class' },
-    term: { type: String, required: true },
-    examsNumber: { type: String, required: true, unique: true },
-    year: { type: String, required: true },
+    teacher: { type: String },
+    student: { type: String },
+    class: { type: String },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    term: { type: String },
+    examsNumber: { type: String },
+    year: { type: String },
     subjects: [subjectSchema],
     coginitive: cognitiveSchema,
     psychomotor: psychomotorSchema,

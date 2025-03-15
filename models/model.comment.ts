@@ -3,17 +3,17 @@ import { mongoose } from "../config/db";
 
 interface Comment {
     comment: string;
-    student: Types.ObjectId;
-    teacher: Types.ObjectId;
+    user: Types.ObjectId;
     lesson: Types.ObjectId;
+    replies: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
 const commentSchema = new Schema<Comment>({
-    comment: { type: String, required: true },
-    student: { type: Schema.Types.ObjectId, ref: 'Student' },
-    teacher: { type: Schema.Types.ObjectId, ref: 'Teacher' },
+    comment: { type: String },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     lesson: { type: Schema.Types.ObjectId, ref: 'Lesson' },
+    replies: [{ type: Schema.Types.ObjectId, ref: 'Reply' }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });

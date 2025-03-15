@@ -18,7 +18,6 @@ interface Lesson {
     descriptions: [Description];
     conclusion: string;
     comments: Types.ObjectId;
-    replies: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
     teacher: String;
@@ -47,7 +46,6 @@ const lessonSchema = new Schema<Lesson>({
     user: { type: Schema.Types.ObjectId, ref: "Question" },
     question: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
-    replies: [{ type: Schema.Types.ObjectId, ref: "Reply" }],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 

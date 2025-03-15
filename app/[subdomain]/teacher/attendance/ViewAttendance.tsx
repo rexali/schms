@@ -175,7 +175,7 @@ export default function ViewAttendancePage(props: any) {
                                                 return (
                                                     <td key={index} className="text-center">
                                                         <input
-                                                            name={`${day.day}-${day.morning}`}
+                                                            name={`${day.day}-${day.morning}-${index}`}
                                                             type="checkbox"
                                                             onChange={(e) => {
                                                                 if (e.currentTarget && e.currentTarget.value === "off") {
@@ -191,7 +191,7 @@ export default function ViewAttendancePage(props: any) {
                                                         />
                                                         &nbsp;&nbsp;&nbsp;
                                                         <input
-                                                            name={`${day.day}-${day.afternoon}`}
+                                                            name={`${day.day}-${day.afternoon}-${index}`}
                                                             type="checkbox"
                                                             onChange={(e) => {
                                                                 if (e.currentTarget && e.currentTarget.value === "off") {

@@ -1,4 +1,4 @@
-import Report from '@/models/model.report';
+import Reply from '@/models/model.reply';
 import Comment from '@/models/model.comment';
 
 
@@ -11,25 +11,25 @@ export async function POST(request: Request) {
         const data = await request.json();
 
         // const result = replies.create({...data });
-        const report = await Report.create({
+        const reply = await Reply.create({
             ...data
         });
 
         const comment = await Comment.findById(data.commentId).exec();
-        comment.replies.push(report._id);
+        comment.replies.push(reply._id);
         await comment.save();
 
-        // await new User({ user: report.user }).save();
+        // await new User({ user: reply.user }).save();
 
-        if (report !== null) {
-            if (Object.keys(report)) {
+        if (reply !== null) {
+            if (Object.keys(reply)) {
 
                 let json_response = {
                     status: "success",
                     message: 'successfully created',
                     data: {
                         // result,
-                        report
+                        reply
                     },
                 };
 
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
             let json_response = {
                 status: "fail",
-                message: 'No report created',
+                message: 'No reply created',
                 data: {},
             };
 
@@ -108,7 +108,7 @@ export async function GET(request: NextRequest) {
         const skip = (page - 1) * limit;
 
         // const result = replies.list();
-        const replies = await Report.find().exec();
+        const replies = await Reply.find().exec();
         if (replies !== null) {
 
             if (replies.length) {

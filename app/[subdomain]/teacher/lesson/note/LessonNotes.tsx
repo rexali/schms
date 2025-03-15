@@ -4,10 +4,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import EditLessonNote from "./EditLessonNote";
 import DeleleModal from "../../../components/common/delete-modal";
 import QuestionsForm from "../../questions/examinations/page";
+import ViewLessonNote from "./ViewLessonNote";
 
 export default function LessonsNotes(props: any) {
     const [modal, setModal] = useState<any>(false);
     const [edit, setEdit] = useState<any>(false);
+    const [view, setView] = useState<any>(false);
+
     const [question, setQuestion] = useState<any>(false);
     const [lessonNotes, setLessonNotes] = useState<any>([{ topic: "topic 11" }, { topic: "topic 22" }]);
     const [lessonId, setLessonId] = useState<any>('');
@@ -16,6 +19,7 @@ export default function LessonsNotes(props: any) {
     async function deleteCallback(id: any) {
         const lessonResponse = await fetch('/api/lessons/' + id, { method: 'DELETE', mode: 'cors' }).then(res => res.json());
         if (lessonResponse.status === 'success') {
+            getLessonsData();
             return true;
         }
 
@@ -42,6 +46,11 @@ export default function LessonsNotes(props: any) {
         return <EditLessonNote setEdit={setEdit} lessonId={lessonId} />
     }
 
+    if (view) {
+
+        return <ViewLessonNote setEdit={setView} lessonId={lessonId} />
+    }
+
 
     if (question) {
 
@@ -63,8 +72,9 @@ export default function LessonsNotes(props: any) {
                                         <span className="text-truncate" style={{ maxWidth: '150px' }}>{lesson.topic}</span>
                                         <button className="btn" onClick={() => { setLessonId(lesson._id); setEdit(true) }}><Edit /></button>
                                         <button className="btn" onClick={() => { setLessonId(lesson._id); setModal(true) }}><Delete /></button>
-                                        <button className="btn" onClick={() => { setLessonId(lesson._id); setQuestion(true) }}> Add Question</button>
-                                        {modal && <DeleleModal cb={async () => await deleteCallback(lesson.id)} closeCallback={() => setModal(false)} />}
+                                        <button className="btn" onClick={() => { setLessonId(lesson._id); setView(true) }}>View</button>
+                                        <button className="btn" onClick={() => { setLessonId(lesson._id); setQuestion(true) }}> Add activity</button>
+                                        {modal && <DeleleModal cb={async () => await deleteCallback(lesson._id)} closeCallback={() => setModal(false)} />}
                                     </ListGroup.Item>
                                 )
                             }
@@ -74,8 +84,9 @@ export default function LessonsNotes(props: any) {
                                     <span className="text-truncate" style={{ maxWidth: '150px' }} onClick={() => { setEdit(true); props.setLessonId(lesson.id) }}>{lesson.topic}</span>
                                     <button className="btn" onClick={() => { setLessonId(lesson._id); setEdit(true) }}><Edit /></button>
                                     <button className="btn" onClick={() => { setLessonId(lesson._id); setModal(true) }}><Delete /></button>
-                                    <button className="btn" onClick={() => { setLessonId(lesson._id); setQuestion(true) }}> Add Question</button>
-                                    {modal && <DeleleModal cb={async () => await deleteCallback(lesson.id)} closeCallback={() => setModal(false)} />}
+                                    <button className="btn" onClick={() => { setLessonId(lesson._id); setView(true) }}>View</button>
+                                    <button className="btn" onClick={() => { setLessonId(lesson._id); setQuestion(true) }}> Add activity</button>
+                                    {modal && <DeleleModal cb={async () => await deleteCallback(lesson._id)} closeCallback={() => setModal(false)} />}
                                 </ListGroup.Item>
                             )
 

@@ -1,5 +1,5 @@
 // import { lessons } from "@/config/db";
-import Reply from "@/models/model.reply";
+import Comment from "@/models/model.comment";
 
 import { NextResponse } from "next/server";
 
@@ -8,16 +8,16 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     const id = (await params).id as any;
 
     // const result = lessons.delete(id);
-    const reply = await Reply.deleteOne({ _id: id }).exec();
+    const comment = await Comment.deleteOne({ _id: id }).exec();
 
-    if(!reply.deletedCount){
+    if(!comment.deletedCount){
 
       let error_response = {
         status: "fail",
         message: "Error! Failed to delete",
         data: {
           // result,
-          reply,
+          comment,
         },
       };
   
@@ -26,10 +26,10 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
     let success_response = {
       status: "success",
-      message: "Reply deleted",
+      message: "Comment deleted",
       data: {
         // result,
-        reply,
+        comment,
       },
     };
 
@@ -67,11 +67,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   try {
 
     const id = (await params).id;  //ByswAbi51l
-    // const reply = lessons.get(id);
-    const reply = await Reply.findById(id).exec();
+    // const comment = lessons.get(id);
+    const comment = await Comment.findById(id).exec();
 
-    if (reply !== null) {
-      if (!Object.keys(reply).length) {
+    if (comment !== null) {
+      if (!Object.keys(comment).length) {
 
         let error_response = {
           status: "fail",
@@ -89,7 +89,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
           status: "success",
           message: 'Found!',
           data: {
-            reply,
+            comment,
             // lesson2
           },
         };
@@ -131,7 +131,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 }
 
 /**
- * Update the reply
+ * Update the comment
  * @param request web request
  * @param params url parameter object
  * @returns a json
@@ -143,16 +143,16 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     // const result = lessons.update({id, ...json});
 
-    const reply = await Reply.updateOne({ _id: id }, {...json })
+    const comment = await Comment.updateOne({ _id: id }, {...json })
 
-    if (reply.modifiedCount) {
+    if (comment.modifiedCount) {
 
       let success_response = {
         status: "success",
         message: 'update successful',
         data: {
           // result,
-          reply,
+          comment,
         },
       };
 
@@ -173,7 +173,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       message: 'update failed',
       data: {
         // result,
-        reply,
+        comment,
       },
     };
 

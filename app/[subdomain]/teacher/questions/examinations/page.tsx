@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const QuestionsForm = (props: any) => {
+    const userId = JSON.parse(window.sessionStorage.getItem('user') as string)._id;
     const [status, setStatus] = useState('')
     const [questions, setQuestions] = useState({
         teacher: "",
@@ -58,12 +59,12 @@ const QuestionsForm = (props: any) => {
 
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        console.log('Submitted questions.questions:', { ...questions, lesson: props.lessonId });
+        console.log('Submitted questions.questions:', { ...questions, lesson: props.lessonId, user: userId});
 
         const questionResponse = await fetch('/api/questions', {
             mode: 'cors',
             method: "POST",
-            body: JSON.stringify({ ...questions, lesson: props.lessonId })
+            body: JSON.stringify({ ...questions, lesson: props.lessonId, user: userId })
         }).then(res => res.json());
         if (questionResponse.status === 'success') {
             setStatus(questionResponse.status)
@@ -72,7 +73,7 @@ const QuestionsForm = (props: any) => {
         }
     };
 
-    
+
     return (
         <div className="container mt-5">
             <h2 className='d-flex justify-content-between'>{props.type} Questions <button className='btn btn-success' onClick={() => props.setQuestion(false)}>Close</button></h2><br />
@@ -103,6 +104,7 @@ const QuestionsForm = (props: any) => {
                                 name="subject"
                                 value={questions.subject}
                                 onChange={handleOtherChange}
+                                id='subject'
 
                             />
                         </div>
@@ -116,6 +118,7 @@ const QuestionsForm = (props: any) => {
                                 name="class"
                                 value={questions.class}
                                 onChange={handleOtherChange}
+                                id='class'
 
                             />
                         </div>
@@ -129,8 +132,9 @@ const QuestionsForm = (props: any) => {
                                 className="form-control"
                                 name="teacher"
                                 value={questions.teacher}
-                                onChange={(e) => handleOtherChange(e)}
-
+                                onChange={handleOtherChange}
+                                id='teacher'
+                            
                             />
                         </div>
                     </div>
@@ -144,6 +148,7 @@ const QuestionsForm = (props: any) => {
                                 name="term"
                                 value={questions.term}
                                 onChange={handleOtherChange}
+                                id='term'
 
                             />
                         </div>
@@ -158,6 +163,7 @@ const QuestionsForm = (props: any) => {
                                 name="year"
                                 value={questions.year}
                                 onChange={handleOtherChange}
+                                id='year'
 
                             />
                         </div>
@@ -172,6 +178,7 @@ const QuestionsForm = (props: any) => {
                                 name="instruction"
                                 value={questions.instruction}
                                 onChange={handleOtherChange}
+                                id='instruction'
 
                             />
                         </div>

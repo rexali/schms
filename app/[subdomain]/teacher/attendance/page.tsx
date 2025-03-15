@@ -74,7 +74,7 @@ export default function AttendancePage(props: any) {
         setAttendance(c => {
             return {
                 ...c,
-                students: c.students.map((student) => student.id === Number(id) ? { ...student, weeklyTotal:getStudentWeeklyAttendance(student.id)+1} : student)
+                students: c.students.map((student) => student.id === Number(id) ? { ...student, weeklyTotal: getStudentWeeklyAttendance(student.id) + 1 } : student)
             }
         });
     }
@@ -109,58 +109,62 @@ export default function AttendancePage(props: any) {
 
     return (
         <div className="w-100">
-            <form>
-                <h1>Attendance</h1>
+            <h1>Attendance</h1>
+
+            <form id="attendanceForm">
                 <div className='row'>
 
                     <div className='col-md-3'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Date</label>
+                        <div className="form-floating">
                             <input type="date" name='date' onChange={addOtherAttendance} className="form-control" id="data" autoComplete='questions' />
+                            <label htmlFor="date">Date</label>
                         </div>
                     </div>
 
                     <div className='col-md-3'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Session</label>
+                        <div className="form-floating">
                             <input type='month' name='session' onChange={addOtherAttendance} className="form-control" id="year" autoComplete='questions' />
+                            <label htmlFor="session">Session</label>
+                        
                         </div>
                     </div>
 
                     <div className='col-md-2'>
-                        <div className="form-floatin">
-                            <label htmlFor="term">Term</label>
+                        <div className="form-floating">
                             <select className="form-control" onChange={addOtherAttendance} name='term' id='term' required>
                                 <option key={'start9'} value="">Select</option>
                                 {
                                     terms.map((term, index) => <option key={index} value={`${term}`}>{term}</option>)
                                 }
                             </select>
+                            <label htmlFor="term">Term</label>
+
                         </div>
                     </div>
 
                     <div className='col-md-2'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Week</label>
+                        <div className="form-floating">
                             <select className="form-control" onChange={addOtherAttendance} name='week' id='week' required>
                                 <option key={'start10'} value="">Select</option>
                                 {
                                     weeks.map((week, index) => <option key={index} value={`${week}`}>{week}</option>)
                                 }
                             </select>
+                            <label htmlFor="week">Week</label>
+
                         </div>
                     </div>
 
 
                     <div className='col-md-2'>
-                        <div className="form-floatin">
-                            <label htmlFor="name">Day</label>
+                        <div className="form-floating">
                             <select className="form-control" onChange={addOtherAttendance} name='day' id='day' required>
                                 <option key={'start11'} value="">Select</option>
                                 {
                                     dayx.map((day, index) => <option key={index} value={`${day}`}>{day}</option>)
                                 }
                             </select>
+                            <label htmlFor="day">Day</label>
                         </div>
                     </div>
                 </div><br />

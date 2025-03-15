@@ -3,16 +3,14 @@ import { mongoose } from "../config/db";
 
 interface Reply {
     comment: string;
-    student: Types.ObjectId;
-    teacher: Types.ObjectId;
+    user: Types.ObjectId;
     lesson: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
 }
 const replySchema = new Schema<Reply>({
-    comment: { type: String, required: true },
-    student: { type: Schema.Types.ObjectId, ref: 'Student' },
-    teacher: { type: Schema.Types.ObjectId, ref: 'Teacher' },
+    comment: { type: String },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     lesson: { type: Schema.Types.ObjectId, ref: 'Lesson' },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },

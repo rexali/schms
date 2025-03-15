@@ -10,7 +10,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     // const result = lessons.delete(id);
     const lesson = await Lesson.deleteOne({ _id: id }).exec();
 
-    if(!lesson.deletedCount){
+    if (!lesson.deletedCount) {
 
       let error_response = {
         status: "fail",
@@ -20,7 +20,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
           lesson,
         },
       };
-  
+
       return NextResponse.json(error_response, { status: 400, headers: { "Content-Type": "application/json" } });
     }
 
@@ -68,7 +68,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 
     const id = (await params).id;  //ByswAbi51l
     // const lesson = lessons.get(id);
-    const lesson = await Lesson.findById(id).exec();
+    const lesson = await Lesson.findById(id)
+      .populate({path:'comments', populate:'replies'})
+      .exec();
 
     if (lesson !== null) {
       if (!Object.keys(lesson).length) {
@@ -88,7 +90,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
         let success_response = {
           status: "success",
           message: 'Found!',
-          data: {
+          data: { 
             lesson,
             // lesson2
           },
@@ -143,7 +145,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     // const result = lessons.update({id, ...json});
 
-    const lesson = await Lesson.updateOne({ _id: id }, {...json })
+    const lesson = await Lesson.updateOne({ _id: id }, { ...json })
 
     if (lesson.modifiedCount) {
 

@@ -1,35 +1,37 @@
-import Report from '@/models/model.report';
 import Comment from '@/models/model.comment';
+import Lesson from '@/models/model.lesson';
+import User from '@/models/model.user';
 
 
 import { NextRequest, NextResponse } from 'next/server';
-// import { replies } from '@/config/db';
+// import { comments } from '@/config/db';
 
 export async function POST(request: Request) {
 
     try {
         const data = await request.json();
 
-        // const result = replies.create({...data });
-        const report = await Report.create({
+        // const result = comments.create({...data });
+
+        const comment = await Comment.create({
             ...data
         });
 
-        const comment = await Comment.findById(data.commentId).exec();
-        comment.replies.push(report._id);
-        await comment.save();
+        const lesson = await Lesson.findById(data.lesson).exec();
+        lesson.comments.push(comment._id);
+        await lesson.save();
 
-        // await new User({ user: report.user }).save();
+        // await new User({ user: comment.user }).save();
 
-        if (report !== null) {
-            if (Object.keys(report)) {
+        if (comment !== null) {
+            if (Object.keys(comment)) {
 
                 let json_response = {
                     status: "success",
                     message: 'successfully created',
                     data: {
                         // result,
-                        report
+                        comment
                     },
                 };
 
@@ -42,7 +44,7 @@ export async function POST(request: Request) {
 
             let json_response = {
                 status: "fail",
-                message: 'No report created',
+                message: 'No comment created',
                 data: {},
             };
 
@@ -107,17 +109,17 @@ export async function GET(request: NextRequest) {
         const limit = limit_str ? parseInt(limit_str, 10) : 10;
         const skip = (page - 1) * limit;
 
-        // const result = replies.list();
-        const replies = await Report.find().exec();
-        if (replies !== null) {
+        // const result = comments.list();
+        const comments = await Comment.find().exec();
+        if (comments !== null) {
 
-            if (replies.length) {
+            if (comments.length) {
                 let json_response = {
                     status: "success",
                     message: 'Found!',
                     data: {
                         // result,
-                        replies
+                        comments
                     },
                 };
 
