@@ -5,6 +5,8 @@ const QuestionsForm = (props: any) => {
     const userId = JSON.parse(window.sessionStorage.getItem('user') as string)._id;
     const [status, setStatus] = useState('')
     const [questions, setQuestions] = useState({
+        mark:0,
+        duration:"",
         teacher: "",
         subject: "",
         class: "",
@@ -77,13 +79,12 @@ const QuestionsForm = (props: any) => {
     return (
         <div className="container mt-5">
             <h2 className='d-flex justify-content-between'>{props.type} Questions <button className='btn btn-success' onClick={() => props.setQuestion(false)}>Close</button></h2><br />
-            <h3>Objectives</h3>
             <form onSubmit={handleSubmit}>
                 <div className='row'>
 
                     <div className='col-md-3'>
                         <div className="mb-3">
-                            <label className="form-label">Assessment Type</label>
+                            <label className="form-label">Assessment type</label>
                             <select name="type" id="type" className="form-control" onChange={handleOtherChange} >
                                 <option value="">Select</option>
                                 <option value="Examination">Examination</option>
@@ -169,7 +170,7 @@ const QuestionsForm = (props: any) => {
                         </div>
                     </div>
 
-                    <div className='col-md-6'>
+                    <div className='col-md-3'>
                         <div className="mb-3">
                             <label className="form-label">Instruction</label>
                             <input
@@ -183,8 +184,40 @@ const QuestionsForm = (props: any) => {
                             />
                         </div>
                     </div>
+
+                    <div className='col-md-3'>
+                        <div className="mb-3">
+                            <label className="form-label">Mark(s)</label>
+                            <input
+                                type="number"
+                                className="form-control"
+                                name="mark"
+                                value={questions.mark}
+                                onChange={handleOtherChange}
+                                id='mark'
+
+                            />
+                        </div>
+                    </div>
+
+                    <div className='col-md-3'>
+                        <div className="mb-3">
+                            <label className="form-label">Exam duration</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="duration"
+                                value={questions.duration}
+                                onChange={handleOtherChange}
+                                id='duration'
+
+                            />
+                        </div>
+                    </div>
                 </div>
 
+               <h3 className='mt-5'>Objectives</h3>
+                
                 {questions?.objectives.map((question: any) => (
                     <div className="mb-3" key={question.id}>
                         <label htmlFor={`question${question.id}`} className="form-label">Question {question.id}</label>

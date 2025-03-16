@@ -15,6 +15,8 @@ type Theory = {
 }
 
 interface Question {
+    mark: number;
+    duration: string;
     class: string;
     subject: string;
     type: string; // C.A, Exams, Home Work, Assignment, Class Work 
@@ -45,7 +47,7 @@ const optionSchema = new Schema<Option>({
 })
 
 const objectiveSchema = new Schema<Objective>({
-    id: { type: Number},
+    id: { type: Number },
     answer: { type: String },
     text: { type: String },
     options: { type: [String] }
@@ -58,6 +60,8 @@ const theorySchema = new Schema<Theory>({
 })
 
 const questionSchema = new Schema<Question>({
+    mark: { type: Number },
+    duration: { type: String },
     class: { type: String },
     subject: { type: String },
     teacher: { type: String },

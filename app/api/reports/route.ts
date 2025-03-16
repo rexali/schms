@@ -15,10 +15,6 @@ export async function POST(request: Request) {
             ...data
         });
 
-        const comment = await Comment.findById(data.commentId).exec();
-        comment.replies.push(report._id);
-        await comment.save();
-
         // await new User({ user: report.user }).save();
 
         if (report !== null) {

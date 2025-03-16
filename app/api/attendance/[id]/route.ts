@@ -1,5 +1,5 @@
 // import { lessons } from "@/config/db";
-import Submission from "@/models/model.submission";
+import Attendance from "@/models/model.attendance";
 
 import { NextResponse } from "next/server";
 
@@ -8,16 +8,16 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
     const id = (await params).id as any;
 
     // const result = lessons.delete(id);
-    const submission = await Submission.deleteOne({ _id: id }).exec();
+    const attendance = await Attendance.deleteOne({ _id: id }).exec();
 
-    if(!submission.deletedCount){
+    if(!attendance.deletedCount){
 
       let error_response = {
         status: "fail",
         message: "Error! Failed to delete",
         data: {
           // result,
-          submission,
+          attendance,
         },
       };
   
@@ -26,10 +26,10 @@ export async function DELETE(request: Request, { params }: { params: Promise<{ i
 
     let success_response = {
       status: "success",
-      message: "Submission deleted",
+      message: "Attendance deleted",
       data: {
         // result,
-        submission,
+        attendance,
       },
     };
 
@@ -67,11 +67,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
   try {
 
     const id = (await params).id;  //ByswAbi51l
-    // const submission = lessons.get(id);
-    const submission = await Submission.findById(id).exec();
+    // const attendance = lessons.get(id);
+    const attendance = await Attendance.findById(id).exec();
 
-    if (submission !== null) {
-      if (!Object.keys(submission).length) {
+    if (attendance !== null) {
+      if (!Object.keys(attendance).length) {
 
         let error_response = {
           status: "fail",
@@ -89,7 +89,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
           status: "success",
           message: 'Found!',
           data: {
-            submission,
+            attendance,
             // lesson2
           },
         };
@@ -131,7 +131,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 }
 
 /**
- * Update the submission
+ * Update the attendance
  * @param request web request
  * @param params url parameter object
  * @returns a json
@@ -143,16 +143,16 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 
     // const result = lessons.update({id, ...json});
 
-    const submission = await Submission.updateOne({ _id: id }, {...json })
+    const attendance = await Attendance.updateOne({ _id: id }, {...json })
 
-    if (submission.modifiedCount) {
+    if (attendance.modifiedCount) {
 
       let success_response = {
         status: "success",
         message: 'update successful',
         data: {
           // result,
-          submission,
+          attendance,
         },
       };
 
@@ -173,7 +173,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
       message: 'update failed',
       data: {
         // result,
-        submission,
+        attendance,
       },
     };
 

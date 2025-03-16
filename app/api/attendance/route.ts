@@ -1,33 +1,28 @@
-import Question from '@/models/model.question';
-import Submission from '@/models/model.submission';
+import Attendance from '@/models/model.attendance';
 
 import { NextRequest, NextResponse } from 'next/server';
-// import { submissions } from '@/config/db';
+// import { attendances } from '@/config/db';
 
 export async function POST(request: Request) {
 
     try {
         const data = await request.json();
 
-        // const result = submissions.create({...data });
+        // const result = attendances.create({...data });
 
-        const submission = await Submission.create({
+        const attendance = await Attendance.create({
             ...data
         });
 
-        let question = await Question.findById(data.questionId).exec();
-        question.submissions.push(submission._id);
-        await question.save();
-
-        if (submission !== null) {
-            if (Object.keys(submission).length) {
+        if (attendance !== null) {
+            if (Object.keys(attendance).length) {
 
                 let json_response = {
                     status: "success",
                     message: 'successfully created',
                     data: {
                         // result,
-                        submission
+                        attendance
                     },
                 };
 
@@ -40,7 +35,7 @@ export async function POST(request: Request) {
 
             let json_response = {
                 status: "fail",
-                message: 'No submission created',
+                message: 'No attendance created',
                 data: {},
             };
 
@@ -105,17 +100,17 @@ export async function GET(request: NextRequest) {
         const limit = limit_str ? parseInt(limit_str, 10) : 10;
         const skip = (page - 1) * limit;
 
-        // const result = submissions.list();
-        const submissions = await Submission.find().exec();
-        if (submissions !== null) {
+        // const result = attendances.list();
+        const attendances = await Attendance.find().exec();
+        if (attendances !== null) {
 
-            if (submissions.length) {
+            if (attendances.length) {
                 let json_response = {
                     status: "success",
                     message: 'Found!',
                     data: {
                         // result,
-                        submissions
+                        attendances
                     },
                 };
 
