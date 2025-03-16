@@ -2,41 +2,56 @@ import { Schema, Types } from "mongoose";
 import { mongoose } from "../config/db";
 
 interface Plan {
-    teacher: Types.ObjectId;
-    Week: string;
+    teacher: string;
+    week: string;
     duration: string;
     subject: string;
     topic: string;
-    class: Types.ObjectId;
+    class: String;
     objectives: string;
-    materials: Date;
+    materials: String;
     previousKnowledge: string;
     introduction: string;
-    presentation: string;
-    evaluation: Types.ObjectId;
+    presentations: [Presentation];
+    evaluation: string;
     conclusion: string;
     comment: Types.ObjectId;
+    user: Types.ObjectId;
     createdAt: Date;
     updatedAt: Date;
     lesson: Types.ObjectId;
 }
 
+type Presentation = {
+    id: number,
+    text: string
+}
+
+const presentationSchema = new Schema<Presentation>({
+    id: { type: Number },
+    text: { type: String },
+})
+
 const planSchema = new Schema<Plan>({
-    teacher: { type: Schema.Types.ObjectId, ref: "Teacher" },
-    class: { type: Schema.Types.ObjectId, ref: "Class" },
-    subject: { type: String, required: true },
-    topic: { type: String, required: true },
+    user: { type: Schema.Types.ObjectId, ref: "User" },
+    teacher: { type: String },
+    week: { type: String },
+    duration: { type: String },
+    class: { type: String },
+    subject: { type: String },
+    topic: { type: String },
     objectives: { type: String },
-    materials: { type: Date },
+    materials: { type: String },
     previousKnowledge: { type: String },
     introduction: { type: String },
-    presentation: { type: String },
+    presentations: [presentationSchema],
+    evaluation: { type: String },
     conclusion: { type: String },
     comment: { type: Schema.Types.ObjectId, ref: "Comment" },
-    lesson: { type: Schema.Types.ObjectId, ref: "Plan" },
+    lesson: { type: Schema.Types.ObjectId, ref: "Lesson" },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
-    
+
 });
 
 export default mongoose.models.Plan || mongoose.model("Plan", planSchema);

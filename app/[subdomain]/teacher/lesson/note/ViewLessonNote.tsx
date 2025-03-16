@@ -98,7 +98,7 @@ export default function ViewLessonNote(props: any) {
         <div className="container">
 
             <h2 className="my-4 bg-light p-2 d-flex flex-row justify-content-between">View a lesson note <button className="btn btn-success" onClick={() => props.setEdit(false)}><Close /> close</button></h2>
-            <div className="row bg-light p-2 border-radius-2">
+            <div className="row">
 
                 <div className="col-md-6">
                     <div className="form-group">
@@ -156,7 +156,7 @@ export default function ViewLessonNote(props: any) {
                     </div>
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-12">
                     <div className="form-group">
                         <label htmlFor="quest">Introduction</label>
                         <p className="bg-light p-2">{lesson?.introduction}</p>
@@ -164,7 +164,7 @@ export default function ViewLessonNote(props: any) {
                     </div>
                 </div>
 
-                <div className="col-md-12 mt-5">
+                <div className="col-md-12 mt-2">
                     {/* <h2 className="d-flex flex-row justify-content-between">Description <button className="btn btn-primary" disabled type="button" onClick={(e) => addDescription()}>Add Description</button></h2> */}
                     {
                         lesson?.descriptions.map((description, index) => (

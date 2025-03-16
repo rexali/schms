@@ -51,15 +51,22 @@ export default function LessonsNotes(props: any) {
         return <ViewLessonNote setEdit={setView} lessonId={lessonId} />
     }
 
-
     if (question) {
 
         return <QuestionsForm setQuestion={setQuestion} type={"Lesson"} lessonId={lessonId} />
     }
 
+    if (!lessonNotes?.length) {
+
+        return (<div>
+            <h1>Lesson notes</h1>
+            <div className="text-center m-2"> No lesson note found </div>
+        </div>)
+    }
+
     return (
         <div className="w-100">
-            <h1>Lesson Notes</h1>
+            <h1>Lesson notes</h1>
             {
                 <ListGroup as={'ol'} numbered>
                     {

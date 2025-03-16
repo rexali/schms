@@ -22,6 +22,7 @@ interface Lesson {
     updatedAt: Date;
     teacher: String;
     user: Types.ObjectId;
+    plan:Types.ObjectId;
     question:Types.ObjectId;
 }
 
@@ -44,6 +45,7 @@ const lessonSchema = new Schema<Lesson>({
     descriptions: [descriptionSchema],
     conclusion: { type: String },
     user: { type: Schema.Types.ObjectId, ref: "Question" },
+    plan: { type: Schema.Types.ObjectId, ref: "Plan" },
     question: { type: Schema.Types.ObjectId, ref: "User" },
     comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
     createdAt: { type: Date, default: Date.now },

@@ -1,6 +1,7 @@
 import { useState } from "react"
 
 export default function AddLessonPlan(props: any) {
+    let userId = JSON.parse(window.sessionStorage.getItem('user') as string)._id;
     const [plan, setPlan] = useState({
         teacher: '',
         class: '',
@@ -15,8 +16,9 @@ export default function AddLessonPlan(props: any) {
         presentations: [{ id: 1, text: '' }],
         evaluation:'',
         conclusion:''
-    })
-
+    });
+    const [status, setStatus]= useState('');
+    
     const addPresentationStep = () => {
         setPlan({ ...plan, presentations: [...plan.presentations, { id: plan.presentations.length + 1, text: '' }] })
     }
@@ -33,8 +35,21 @@ export default function AddLessonPlan(props: any) {
         setPlan({ ...plan, [e.target.name]: e.target.value })
     }
 
-    function addPlan(): void {
-        console.log(plan);
+    
+    async function addPlan(): Promise<void> {
+        
+        setStatus('Adding plan... Wait');
+        let finalPlan = { ...plan, user: userId };
+        console.log(finalPlan);
+        const planResponse = await fetch('/api/plans',
+            {
+                method: "POST",
+                mode: 'cors',
+                body: JSON.stringify(finalPlan)
+            }).then(res => res.json());
+        if (planResponse.status) {
+            setStatus(planResponse.status + ": " + planResponse.message);
+        }
     }
 
     return (
@@ -44,66 +59,73 @@ export default function AddLessonPlan(props: any) {
             <div className="row">
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="topic">Subject</label>
+                    <div className="form-floating">
                         <input type="text" name='subject' onChange={addPlanChange} className="form-control" id="subject" autoComplete='questions' />
+                        <label htmlFor="subject">Subject</label>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="topic">Topic</label>
+                    <div className="form-floating">
+                        <input type="text" name='teacher' onChange={addPlanChange} className="form-control" id="teacher" autoComplete='questions' />
+                        <label htmlFor="teacher">Teacher</label>
+                    </div>
+                </div>
+
+                <div className="col-md-6">
+                    <div className="form-floating">
                         <input type="text" name='topic' onChange={addPlanChange} className="form-control" id="topic" autoComplete='questions' />
+                        <label htmlFor="topic">Topic</label>
                     </div>
                 </div>
 
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="topic">Class</label>
+                    <div className="form-floating">
                         <input type="text" name='class' onChange={addPlanChange} className="form-control" id="class" autoComplete='questions' />
+                        <label htmlFor="class">Class</label>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="week">Week</label>
+                    <div className="form-floating">
                         <input type="week" name='week' onChange={addPlanChange} className="form-control" id="week" autoComplete='questions' />
+                        <label htmlFor="week">Week</label>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="topic">Duration</label>
-                        <input type="time" name='duration' onChange={addPlanChange} className="form-control" id="duration" autoComplete='questions' />
+                    <div className="form-floating">
+                        <input type="hour" name='duration' onChange={addPlanChange} className="form-control" id="duration" autoComplete='questions' />
+                        <label htmlFor="duration">Duration</label>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="quest">Objectives</label>
+                    <div className="form-floating">
                         <textarea name="objectives" id="objectives" onChange={addPlanChange} className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="quest">Objectives</label>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="quest">Materials</label>
+                    <div className="form-floating">
                         <textarea name="materials" id="materials" onChange={addPlanChange} className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="quest">Materials</label>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="quest">Previous Knowledge</label>
+                    <div className="form-floating">
                         <textarea name="previousKnowledge" id="previousKnowledge" onChange={addPlanChange} className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="prev">Previous Knowledge</label>
                     </div>
                 </div>
 
                 <div className="col-md-12">
-                    <div className="form-group">
-                        <label htmlFor="quest">Introduction</label>
+                    <div className="form-floating">
                         <textarea name="introduction" id="introduction" onChange={addPlanChange} className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="intro">Introduction</label>
                     </div>
                 </div>
 
@@ -120,21 +142,21 @@ export default function AddLessonPlan(props: any) {
                     }
                 </div>
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="instru">Evaluation</label>
+                    <div className="form-floating">
                         <textarea name="evaluation" id="evaluation" onChange={addPlanChange} className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="instru">Evaluation</label>
                     </div>
                 </div>
 
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="instru">Conclusion</label>
+                    <div className="form-floating">
                         <textarea name="conclusion" id="conclusion" onChange={addPlanChange} className="form-control" rows={5} autoComplete='text'></textarea>
+                        <label htmlFor="conc">Conclusion</label>
                     </div>
                 </div>
 
             </div>
-
+             <p className="text-center text-success">{status}</p>
             <div className='text-center'>
                 <button className="btn btn-primary w-100 py-2 my-2" type="button" onClick={() => addPlan()}>Submit</button>
             </div>
