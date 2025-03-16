@@ -2,14 +2,14 @@ import Lesson from '@/models/model.lesson';
 import Question from '@/models/model.question';
 
 import { NextRequest, NextResponse } from 'next/server';
-// import { lessons } from '@/config/db';
+// import { questions } from '@/config/db';
 
 export async function POST(request: Request) {
 
     try {
         const data = await request.json();
 
-        // const result = lessons.create({...data });
+        // const result = questions.create({...data });
 
         const question = await Question.create({
             ...data
@@ -103,17 +103,17 @@ export async function GET(request: NextRequest) {
         const limit = limit_str ? parseInt(limit_str, 10) : 10;
         const skip = (page - 1) * limit;
 
-        // const result = lessons.list();
-        const lessons = await Lesson.find().exec();
-        if (lessons !== null) {
+        // const result = questions.list();
+        const questions = await Question.find().exec();
+        if (questions !== null) {
 
-            if (lessons.length) {
+            if (questions.length) {
                 let json_response = {
                     status: "success",
                     message: 'Found!',
                     data: {
                         // result,
-                        lessons
+                        questions
                     },
                 };
 
