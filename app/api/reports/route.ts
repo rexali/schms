@@ -3,14 +3,14 @@ import Comment from '@/models/model.comment';
 
 
 import { NextRequest, NextResponse } from 'next/server';
-// import { replies } from '@/config/db';
+// import { reports } from '@/config/db';
 
 export async function POST(request: Request) {
 
     try {
         const data = await request.json();
 
-        // const result = replies.create({...data });
+        // const result = reports.create({...data });
         const report = await Report.create({
             ...data
         });
@@ -103,17 +103,17 @@ export async function GET(request: NextRequest) {
         const limit = limit_str ? parseInt(limit_str, 10) : 10;
         const skip = (page - 1) * limit;
 
-        // const result = replies.list();
-        const replies = await Report.find().exec();
-        if (replies !== null) {
+        // const result = reports.list();
+        const reports = await Report.find().exec();
+        if (reports !== null) {
 
-            if (replies.length) {
+            if (reports.length) {
                 let json_response = {
                     status: "success",
                     message: 'Found!',
                     data: {
                         // result,
-                        replies
+                        reports
                     },
                 };
 

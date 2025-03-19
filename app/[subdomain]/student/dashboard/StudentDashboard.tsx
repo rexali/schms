@@ -10,7 +10,7 @@ import StudentActivities from "../activities/page";
 import StudentAssessments from "../assessments/page";
 import StudentExams from "../exams/page";
 import StudentReportSheet from "../reports/page";
-// import StudentAttendance from "../attendance/page";
+import StudentAttendance from "../attendance/page";
 import ParentComponent from "../attendance/ParentComponent";
 
 export default function TeacherDashboard(props: any) {
@@ -68,8 +68,8 @@ export default function TeacherDashboard(props: any) {
                         </div>
                         <div className="tab-pane active" id={tabName}>
                             {tabName === 'reports' ? <div><StudentReportSheet /></div> : ''}
-                            {/* {tabName === 'attendance' ? <div><StudentAttendance /></div> : ''} */}
-                            {tabName === 'attendance' ? <div><ParentComponent  /></div> : ''}
+                            {tabName === 'attendance' ? <div><StudentAttendance /></div> : ''}
+                            {/* {tabName === 'attendance' ? <div><ParentComponent  /></div> : ''} */}
 
                             {tabName === 'lessons' ? <div><StudentLessons/></div> : ''}
                             {tabName === 'activities' ? <div><StudentActivities /></div> : ''}

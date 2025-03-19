@@ -61,7 +61,7 @@ const EditQuestion = (props: any) => {
         setQuestions({ ...questions, theories: [...questions.theories, { id: questions.theories.length + 1, text: '', answer: '' }] });
     };
 
-    const handleSubmit = async (event: { preventDefault: () => void; }) => {
+    const handleUpdateSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         console.log('Submitted questions.questions:', { ...questions, lesson: props.lessonId, user: userId });
 
@@ -100,7 +100,7 @@ const EditQuestion = (props: any) => {
     return (
         <div className="container mt-5">
             <h2 className='d-flex justify-content-between'>{props.type} Edit Question  <button className='btn btn-success' onClick={() => props.setEdit(false)}>close</button></h2><br />
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleUpdateSubmit}>
                 <div className='row'>
 
                     <div className='col-md-3'>
@@ -258,6 +258,7 @@ const EditQuestion = (props: any) => {
                                     name={`question${question.id}Options`}
                                     id={`question${question.id}Option${index}`}
                                     defaultValue={option}
+                                    checked={question.answer ===option.split('.')[0]}
                                     onChange={(e) => handleAnswerChange(question.id, index, e.target.value)}
                                 />
                                 <input
@@ -303,9 +304,9 @@ const EditQuestion = (props: any) => {
                 <button type="button" className="btn btn-secondary mb-3" onClick={addTheoryQuestion}>Add Question</button><br />
                 <p className='text-center text-success'>{status}</p>
                 <div className='text-center'>
-                    <button type="submit" className="btn btn-primary">Submit</button>
+                    <button type="submit" className="btn btn-primary">Update</button>
                 </div>
-            </form>
+            </form><br/><br/>
         </div>
     );
 };

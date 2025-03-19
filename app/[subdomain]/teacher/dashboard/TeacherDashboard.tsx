@@ -5,11 +5,12 @@ import { DynamicHorizontalMenu } from "../../components/menu/HorizontalMenu";
 import VerticalMenu from "../../components/menu/VerticalMenu";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import LessonPage from "../lesson/page";
-import AttendancePage from "../attendance/page";
-import ViewAttendancePage from "../attendance/ViewAttendance";
 import TeacherMessagesList from "../messages/page";
 import TeacherClasses from "../classes/page";
 import QuestionsPage from "../questions/page";
+import ReportsPage from "../reports/page";
+import WorkBookPage from "../workbook/page";
+import AttendancePage from "../attendance/page";
 
 export default function TeacherDashboard(props: any) {
     let [tabName, setTabName] = useState('attendance');
@@ -66,11 +67,12 @@ export default function TeacherDashboard(props: any) {
                         </div>
                         <div className="tab-pane active" id={tabName}>
                             {tabName === 'attendance' ? <div className="container"><AttendancePage /></div> : ''}
+                            {tabName === 'workbook' ? <div className="container"><WorkBookPage /></div> : ''}
                             {tabName === 'lessons' ? <div className="container"><LessonPage /></div> : ''}
-                            {tabName === 'reports' ? <div className="container"><ViewAttendancePage/></div> : ''}
-                            {tabName === 'classes' ? <div className="container"><TeacherClasses/> </div> : ''}
+                            {tabName === 'reports' ? <div className="container"><ReportsPage /></div> : ''}
+                            {tabName === 'classes' ? <div className="container"><TeacherClasses /> </div> : ''}
                             {tabName === 'questions' ? <div><QuestionsPage /></div> : ''}
-                            {tabName === 'messages' ? <div><TeacherMessagesList/></div> : ''}
+                            {tabName === 'messages' ? <div><TeacherMessagesList /></div> : ''}
                         </div>
                     </div>
                 </div>

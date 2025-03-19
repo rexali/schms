@@ -82,6 +82,8 @@ const ViewQuestion = (props: any) => {
     const getQuestionsData = useCallback(async () => {
         const questionResponse = await fetch('/api/questions/' + props.questionId).then(res => res.json());
         if (questionResponse.status === 'success') {
+            console.log(questionResponse.data.question);
+
             setQuestions(questionResponse.data.question)
         } else {
             // setQuestions()
@@ -301,12 +303,12 @@ const ViewQuestion = (props: any) => {
                 ))
                 }
 
-                <button type="button" className="btn btn-secondary mb-3" onClick={addTheoryQuestion}>Add Question</button><br />
+                {/* <button type="button" className="btn btn-secondary mb-3" onClick={addTheoryQuestion}>Add Question</button><br />
                 <p className='text-center text-success'>{status}</p>
                 <div className='text-center'>
                     <button type="submit" className="btn btn-primary">Submit</button>
-                </div>
-            </form>
+                </div> */}
+            </form><br/><br/><br/>
         </div>
     );
 };

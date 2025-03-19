@@ -3,10 +3,11 @@ import { mongoose } from "../config/db";
 
 
 type Subject = {
+    id:Number;
     subject: String;
-    ca: Number;
-    exams: Number;
-    total: Number;
+    testScore: Number;
+    examScore: Number;
+    totalScore: Number;
     position: String;
     grade: String;
     remark: String;
@@ -26,27 +27,29 @@ type Psychomotor = {
 
 
 interface Report {
-    teacher: String;
-    student: String;
+    studentName: String;
     class: String;
     user: Types.ObjectId;
     term: String;
-    examsNumber: string;
+    examinationNumber: string;
+    admissionNumber: string;
     year: String;
     subjects: [Subject];
-    coginitive: Cognitive,
+    cognitive: Cognitive,
     psychomotor: Psychomotor,
-    teacherComment: String,
-    principalComment: String
+    teacherComments: String,
+    classTeacher: String,
+    principal: String,
+    principalComments: String
     createdAt: Date;
     updatedAt: Date;
 }
 
 const subjectSchema = new Schema<Subject>({
     subject: String,
-    ca: Number,
-    exams: Number,
-    total: Number,
+    testScore: Number,
+    examScore: Number,
+    totalScore: Number,
     position: String,
     grade: String,
     remark: String
@@ -65,18 +68,20 @@ const psychomotorSchema = new Schema<Psychomotor>({
 });
 
 const reportSchema = new Schema<Report>({
-    teacher: { type: String },
-    student: { type: String },
+    studentName: { type: String },
     class: { type: String },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     term: { type: String },
-    examsNumber: { type: String },
+    examinationNumber: { type: String },
+    admissionNumber: { type: String },
     year: { type: String },
     subjects: [subjectSchema],
-    coginitive: cognitiveSchema,
+    cognitive: cognitiveSchema,
     psychomotor: psychomotorSchema,
-    teacherComment: { type: String },
-    principalComment: { type: String },
+    teacherComments: { type: String },
+    principalComments: { type: String },
+    classTeacher: { type: String },
+    principal: { type: String },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
 });
