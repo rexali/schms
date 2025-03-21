@@ -5,6 +5,7 @@ export default async function AdminisitratorPage({ params }: { params: Promise<{
     return <ParentDashboard
     subdomain={subdomain} 
     tabNames={[
+        'Profile',
         "Assignments", 
         "Attendance", 
         "Messages",

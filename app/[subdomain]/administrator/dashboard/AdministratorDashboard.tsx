@@ -73,15 +73,16 @@ export default function AdministratorDashboard(props: any) {
                             <p>Welcome to Admin Dashboard</p>
                         </div>
                         <div className="tab-pane active" id={tabName}>
-                            {tabName === 'students' ? <div className="container"><AddStudent/></div> : ''}
+                            {tabName === 'profile' ? <div className="container">Profile</div> : ''}
+                            {tabName === 'students' ? <div className="container"><AddStudent /></div> : ''}
                             {tabName === 'staff' ? <div className="conatiner"><AddStaff /></div> : ''}
                             {tabName === 'applicants' ? <div className="conatiner"><AddApplicant /></div> : ''}
-                            {tabName === 'classes' ? <div className="container"><ClassesList/></div> : ''}
-                            {tabName === 'lessons' ? <div><LessonPlans/></div> : ''}
+                            {tabName === 'classes' ? <div className="container"><ClassesList /></div> : ''}
+                            {tabName === 'lessons' ? <div><LessonPlans /></div> : ''}
                             {tabName === 'questions' ? <div><AddReport /></div> : ''}
-                            {tabName === 'schedules' ? <div><AddSchedule/></div> : ''}
+                            {tabName === 'schedules' ? <div><AddSchedule /></div> : ''}
                             {tabName === 'attendance' ? <div>Teacher:attendance</div> : ''}
-                            {tabName === 'reports' ? <div className="conatiner"><StudentReportSheet/></div> : ''}
+                            {tabName === 'reports' ? <div className="conatiner"><StudentReportSheet /></div> : ''}
                             {tabName === 'events' ? <div className="container"><EventsList /></div> : ''}
                             {tabName === 'admissions' ? <div>Admission: applicant, admitted students</div> : ''}
                             {tabName === 'fees' ? <div>Fee</div> : ''}

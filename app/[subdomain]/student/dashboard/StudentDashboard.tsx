@@ -14,7 +14,7 @@ import StudentAttendance from "../attendance/page";
 import ParentComponent from "../attendance/ParentComponent";
 
 export default function TeacherDashboard(props: any) {
-    let [tabName, setTabName] = useState('attendance');
+    let [tabName, setTabName] = useState('profile');
 
     const openTab = (tabname: any) => {
         setTabName(tabname);
@@ -70,7 +70,7 @@ export default function TeacherDashboard(props: any) {
                             {tabName === 'reports' ? <div><StudentReportSheet /></div> : ''}
                             {tabName === 'attendance' ? <div><StudentAttendance /></div> : ''}
                             {/* {tabName === 'attendance' ? <div><ParentComponent  /></div> : ''} */}
-
+                            {tabName === 'profile' ? <div className="container">profile</div> : ''}
                             {tabName === 'lessons' ? <div><StudentLessons/></div> : ''}
                             {tabName === 'activities' ? <div><StudentActivities /></div> : ''}
                             {tabName === 'assessments' ? <div><StudentAssessments /></div> : ''}

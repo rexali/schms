@@ -12,9 +12,10 @@ import ReportsPage from "../reports/page";
 import WorkBookPage from "../workbook/page";
 import AttendancePage from "../attendance/page";
 import SchedulesList from "../schedules/page";
+import ProfilePage from "../profiles/page";
 
 export default function TeacherDashboard(props: any) {
-    let [tabName, setTabName] = useState('attendance');
+    let [tabName, setTabName] = useState('profile');
 
     const openTab = (tabname: any) => {
         setTabName(tabname);
@@ -67,6 +68,7 @@ export default function TeacherDashboard(props: any) {
                             <p>Welcome to Teacher Dashboard</p>
                         </div>
                         <div className="tab-pane active" id={tabName}>
+                            {tabName === 'profile' ? <ProfilePage/> : ''}
                             {tabName === 'attendance' ? <div className="container"><AttendancePage /></div> : ''}
                             {tabName === 'workbook' ? <div className="container"><WorkBookPage /></div> : ''}
                             {tabName === 'lessons' ? <div className="container"><LessonPage /></div> : ''}

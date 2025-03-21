@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import EditApplicant from './EditApplicant';
 
 const AddApplicant = () => {
-    const [edit, setEdit]= useState(false);
+    const [edit, setEdit] = useState(false);
     const [applicants, setApplicants] = useState([
         {
             firstName: 'John',
@@ -27,6 +27,16 @@ const AddApplicant = () => {
         address: '',
         dateOfBirth: '',
         classMaster: ''
+        // firstName,
+        // lastName,
+        // photo,
+        // phone,
+        // dateOfBirth,
+        // streetAddress,
+        // localGovt,
+        // state,
+        // country,
+        // documents
     });
 
     const handleChange = (e: { target: { name: any; value: any; }; }) => {
@@ -51,7 +61,7 @@ const AddApplicant = () => {
 
 
     if (edit) {
-        return <EditApplicant setEdit={setEdit}/>
+        return <EditApplicant setEdit={setEdit} />
     }
 
     return (
@@ -179,7 +189,7 @@ const AddApplicant = () => {
                                         <td>{student.address}</td>
                                         <td>{student.dateOfBirth}</td>
                                         <td>{student.classMaster}</td>
-                                        <td><button onClick={()=>setEdit(true)} className='btn btn-success'>Edit</button></td>
+                                        <td><button onClick={() => setEdit(true)} className='btn btn-success'>Edit</button></td>
                                     </tr>
                                 ))}
                             </tbody>

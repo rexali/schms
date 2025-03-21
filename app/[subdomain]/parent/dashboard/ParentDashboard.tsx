@@ -6,7 +6,6 @@ import { DynamicHorizontalMenu } from "../../components/menu/HorizontalMenu";
 import 'bootstrap/dist/css/bootstrap.min.css'
 import MessagesPage from "../messages/page";
 import EventsPage from "../events/page";
-import StudentAssignmentPage from "../../student/assignments/page";
 import StudentAttendance4ParentPage from "../attendance/page";
 import StudentAssignments4ParentPage from "../assignments/page";
 import StudentLessonNotes4ParentPage from "../lessons/page";
@@ -14,7 +13,7 @@ import StudentReport4ParentPage from "../reports/page";
 
 
 export default function ParentDashboard(props: any) {
-    let [tabName, setTabName] = useState('assignments');
+    let [tabName, setTabName] = useState('profile');
 
     const openTab = (tabname: any) => {
         setTabName(tabname);
@@ -68,12 +67,13 @@ export default function ParentDashboard(props: any) {
                             <h1>Dashboard</h1>
                             <p>Welcome to Parent Dashboard</p>
                         </div>
-                    
+
                         <div className="tab-pane active" id={tabName}>
+                            {tabName === 'profile' ? <div className="container">profile</div> : ''}
                             {tabName === 'assignments' ? <div className="container"><StudentAssignments4ParentPage /></div> : ''}
                             {tabName === 'attendance' ? <div className="container"><StudentAttendance4ParentPage /></div> : ''}
                             {tabName === 'messages' ? <div className="container"><MessagesPage /></div> : ''}
-                            {tabName === 'events' ? <div className="container"><EventsPage/></div> : ''}
+                            {tabName === 'events' ? <div className="container"><EventsPage /></div> : ''}
                             {tabName === 'lessons' ? <div className="container"><StudentLessonNotes4ParentPage /></div> : ''}
                             {tabName === 'reports' ? <div className="container"><StudentReport4ParentPage /> </div> : ''}
                         </div>
