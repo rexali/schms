@@ -7,13 +7,13 @@ import path from "path";
  * Upload upload file with a field name
  * @returns upload 
  */
-function uploadFile(fieldname:any,req:any,res:any, next:any) {
+function uploadFile(fieldname: any, req: any, res: any, next: any) {
 
     const storage = multer.diskStorage({
-        destination: function (req:any, file:any, cb:any) {
+        destination: function (req: any, file: any, cb: any) {
             cb(null, path.join(process.cwd(), 'public/uploads/'));
         },
-        filename: function (req:any, file:any, cb:any) {
+        filename: function (req: any, file: any, cb: any) {
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
             if (file?.originalname.endsWith('.jpg')) {
                 cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg')
@@ -33,7 +33,7 @@ function uploadFile(fieldname:any,req:any,res:any, next:any) {
         }
     });
 
-    const upload = multer({ storage: storage }).single(fieldname)(req,res,next);
+    const upload = multer({ storage: storage }).single(fieldname)(req, res, next);
 
     return upload;
 }
@@ -44,10 +44,10 @@ function uploadFile(fieldname:any,req:any,res:any, next:any) {
  */
 function uploadFiles() {
     const storage = multer.diskStorage({
-        destination: function (req:any, file:any, cb:any) {
+        destination: function (req: any, file: any, cb: any) {
             cb(null, path.join(process.cwd(), 'public/uploads/'));
         },
-        filename: function (req:any, file:any, cb:any) {
+        filename: function (req: any, file: any, cb: any) {
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
             if (file?.originalname.endsWith('.jpg')) {
                 cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg')
@@ -75,12 +75,12 @@ function uploadFiles() {
  * Upload multiple file with same fieldnames
  * @returns upload
  */
-function uploadMultipleFiles(filedName:any) {
+function uploadMultipleFiles(filedName: any) {
     const storage = multer.diskStorage({
-        destination: function (req:any, file:any, cb:any) {
+        destination: function (req: any, file: any, cb: any) {
             cb(null, path.join(process.cwd(), 'public/uploads/'));
         },
-        filename: function (req:any, file:any, cb:any) {
+        filename: function (req: any, file: any, cb: any) {
             const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
             if (file?.originalname.endsWith('.jpg')) {
                 cb(null, file.fieldname + '-' + uniqueSuffix + '.jpg')

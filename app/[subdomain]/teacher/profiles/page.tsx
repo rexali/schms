@@ -4,11 +4,14 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Form from "form-data";
 import axios from "axios";
+import Image from 'next/image';
 
 const ProfilePage = () => {
 
     const mountRef = useRef(true);
     const [status, setStatus] = useState('');
+    const [previewUrl, setPreviewUrl] = useState('');
+    const [previewUrls, setPreviewUrls] = useState([]);
 
     const [profile, setProfile] = useState({
         _id: "",
@@ -24,25 +27,45 @@ const ProfilePage = () => {
         country: "",
         documents: [""],
         photoFile: { name: "" },
-        documentFiles: [{}]
+        documentFiles: [] as Array<any>
     });
 
     const handleChange = (e: any) => {
         const { name, value } = e.target as any;
         if (name === "photo") {
             setProfile({ ...profile, [name]: value.split('\\').pop(), photoFile: e.target.files[0] });
+            createPreviewUrl(e.target.files[0])
         } else if (name === "documents") {
             let filenames = [...e.target.files].map((file: any) => file.name);
             setProfile({ ...profile, documents: filenames, documentFiles: [...e.target.files] });
+            createPreviewUrls([...e.target.files])
         } else {
             setProfile({ ...profile, [name]: value });
         }
+
     };
+
+    const createPreviewUrl = (file: Blob) => {
+        const url = URL.createObjectURL(file)
+        setPreviewUrl(url)
+    }
+
+    const createPreviewUrls = (files: Array<any>) => {
+        let urls: any = [];
+        files.forEach(file => {
+            urls.push(URL.createObjectURL(file))
+        })
+        setPreviewUrls(urls)
+    }
 
     const handleUpdateSubmit = async () => {
         setStatus("Sending data...")
         console.log('Submittted profile:', profile);
         const formData = new Form();
+
+        profile.documentFiles.forEach(file => {
+            formData.append("filetouploads", file, file.name)
+        })
         formData.append('firstName', profile.firstName);
         formData.append('lastName', profile.lastName);
         formData.append('photo', profile.photo);
@@ -52,15 +75,12 @@ const ProfilePage = () => {
         formData.append('localGovt', profile.localGovt);
         formData.append('state', profile.localGovt);
         formData.append('country', profile.country);
-        formData.append('filetoupload', profile.photoFile.name);
+        formData.append('filetoupload', profile.photoFile, profile.photoFile.name);
         formData.append("documents", profile.documents);
         formData.append("_id", profile._id);
 
-        profile.documentFiles.forEach((file: any) => {
-            formData.append("filetouploads", file, file.name)
-        })
 
-        const profileResponse = await axios.patch("/api/profiles/" + profile._id, formData, {
+        const profileResponse = await axios.patch("/api/profiles/update/" + profile._id, formData, {
             withCredentials: false,
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -176,7 +196,7 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <div className='col-md-6'>
-
+                        <Image src={previewUrl} alt={previewUrl} width={100} height={100} style={{ height: "auto", width: "auto" }} />
                         <div className="mb-3">
                             <label className="form-label">Photo</label>
                             <input
@@ -184,6 +204,7 @@ const ProfilePage = () => {
                                 className="form-control"
                                 id='file'
                                 name="photo"
+                                formEncType=''
                                 defaultValue={profile.photo}
                                 onChange={handleChange}
                             />
@@ -269,7 +290,11 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <div className='col-md-6'>
-
+                        {
+                            previewUrls.map((url: any) => {
+                                return <Image key={url} src={url} alt={previewUrl} width={100} height={100} style={{ height: "auto", width: "auto" }} />
+                            })
+                        }
                         <div className="mb-3">
                             <label className="form-label">Documents</label>
                             <input

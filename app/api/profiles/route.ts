@@ -4,33 +4,16 @@ import { NextApiRequest } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 // import { profiles } from '@/config/db';
 
-export async function POST(request: NextApiRequest) {
+export async function POST(request: Request) {
 
     try {
-        // const data: { files: any } = await new Promise((resolve, reject) => {
-            // const form = new IncomingForm({ uploadDir: "./public/uploads" });
-            const form = new IncomingForm();
-            form.parse(request, async (err, fields, files) => {
-                if (err) {
-                    console.log(err.message);
+        const fields = Object.fromEntries(await request.formData());
 
-                    // reject(err);
-
-                    let json_response = {
-                        status: "fail",
-                        message: 'Error! ' + err.message,
-                        data: null
-                    };
-                    return new NextResponse(JSON.stringify(json_response), {
-                        status: 404,
-                        headers: { "Content-Type": "application/json" },
-                    });
-
-                }
-
-                const profile = await Profile.create({
-                    ...fields
-                });
+        const profile = await Profile.create({
+            ...fields
+        });
+        if (profile !== null) {
+            if (Object.keys(profile)) {
 
                 let json_response = {
                     status: "success",
@@ -41,110 +24,38 @@ export async function POST(request: NextApiRequest) {
                     },
                 };
 
-                // resolve({ files })
-
                 return new NextResponse(JSON.stringify(json_response), {
                     status: 201,
                     headers: { "Content-Type": "application/json" },
                 });
+            }
 
 
+            let json_response = {
+                status: "fail",
+                message: 'No profile created',
+                data: {},
+            };
+
+            return new NextResponse(JSON.stringify(json_response), {
+                status: 201,
+                headers: { "Content-Type": "application/json" },
             });
-        // })
-
-        // Object.keys(data.files).forEach(key => {
-        //     console.log(`Recieved file ${key}:`, data.files[key]);
-
-        // })
-
-        // const form = new IncomingForm({ uploadDir: "./public/uploads" });
-        // const body = await request.formData();
-        // console.log(body); 
-        // const [fields, files] = await form.parse(request);
-        // console.log([fields, files]);
-        // let profile;
-        // form.parse(request, async (err, fields, files) => {
-        // console.log(err,fields,files); 
-
-        // if (err) {
-        //         let json_response = {
-        //             status: "fail",
-        //             message: 'Error! ' + err.message,
-        //             data: null
-        //         };
-        //         return new NextResponse(JSON.stringify(json_response), {
-        //             status: 404,
-        //             headers: { "Content-Type": "application/json" },
-        //         });
-        //     }
-        //     const profile = await Profile.create({
-        //         ...fields
-        //     });
-
-        //     let json_response = {
-        //         status: "success",
-        //         message: 'successfully created',
-        //         data: {
-        //             // result,
-        //             profile
-        //         },
-        //     };
-
-        //     return new NextResponse(JSON.stringify(json_response), {
-        //         status: 201,
-        //         headers: { "Content-Type": "application/json" },
-        //     });
-
-        // })
-
-        // console.log({ fields, files });
-        // const profile = await Profile.create({
-        //     ...fields
-        // });
-        // if (profile !== null) {
-        //     if (Object.keys(profile)) {
-
-        //         let json_response = {
-        //             status: "success",
-        //             message: 'successfully created',
-        //             data: {
-        //                 // result,
-        //                 profile
-        //             },
-        //         };
-
-        //         return new NextResponse(JSON.stringify(json_response), {
-        //             status: 201,
-        //             headers: { "Content-Type": "application/json" },
-        //         });
-        //     }
 
 
-        //     let json_response = {
-        //         status: "fail",
-        //         message: 'No profile created',
-        //         data: {},
-        //     };
+        } else {
+            let json_response = {
+                status: "fail",
+                message: 'Error! Returned null',
+                data: null,
+            };
 
-        //     return new NextResponse(JSON.stringify(json_response), {
-        //         status: 201,
-        //         headers: { "Content-Type": "application/json" },
-        //     });
+            return new NextResponse(JSON.stringify(json_response), {
+                status: 201,
+                headers: { "Content-Type": "application/json" },
+            });
 
-
-        // } else {
-        //     let json_response = {
-        //         status: "fail",
-        //         message: 'Error! Returned null',
-        //         data: null,
-        //     };
-
-        //     return new NextResponse(JSON.stringify(json_response), {
-        //         status: 201,
-        //         headers: { "Content-Type": "application/json" },
-        //     });
-
-        // }
+        }
 
     } catch (error: any) {
 

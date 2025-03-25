@@ -19,6 +19,7 @@
     "chart.js": "^4.4.8",
     "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "form-data": "^4.0.2",
     "formidable": "^3.5.2",
     "http-proxy": "^1.18.1",
