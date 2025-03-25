@@ -11,8 +11,8 @@ import QuestionsPage from "../questions/page";
 import ReportsPage from "../reports/page";
 import WorkBookPage from "../workbook/page";
 import AttendancePage from "../attendance/page";
-import SchedulesList from "../schedules/page";
 import ProfilePage from "../profiles/page";
+import TeacherSchedulesList from "../schedules/page";
 
 export default function TeacherDashboard(props: any) {
     let [tabName, setTabName] = useState('profile');
@@ -76,7 +76,7 @@ export default function TeacherDashboard(props: any) {
                             {tabName === 'classes' ? <div className="container"><TeacherClasses /> </div> : ''}
                             {tabName === 'questions' ? <div><QuestionsPage /></div> : ''}
                             {tabName === 'messages' ? <div><TeacherMessagesList /></div> : ''}
-                            {tabName === 'schedules' ? <div><SchedulesList /></div> : ''}
+                            {tabName === 'schedules' ? <div><TeacherSchedulesList /></div> : ''}
 
                         </div>
                     </div>

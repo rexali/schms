@@ -1,5 +1,6 @@
 import { Schema, Types } from "mongoose";
 import { mongoose } from "../config/db";
+import User from "./model.user";
 
 interface Profile {
     firstName: string;
@@ -34,9 +35,9 @@ const profileSchema = new Schema<Profile>({
     state: { type: String },
     country: { type: String },
     documents: [{ type: String }],
-    subjects:[{ type: Schema.Types.ObjectId, ref: "Subject" }],
-    classes:[{ type: Schema.Types.ObjectId, ref: "Class" }],
-    user: { type: Schema.Types.ObjectId, ref: "User" },
+    subjects: [{ type: Schema.Types.ObjectId, ref: "Subject" }],
+    classes: [{ type: Schema.Types.ObjectId, ref: "Class" }],
+    user: { type: Schema.Types.ObjectId, ref: User },
     lessons: [{ type: Schema.Types.ObjectId, ref: "Lesson" }],
     plans: [{ type: Schema.Types.ObjectId, ref: "Plan" }],
     questions: [{ type: Schema.Types.ObjectId, ref: "Question" }],
@@ -45,4 +46,8 @@ const profileSchema = new Schema<Profile>({
     updatedAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.models.Profile || mongoose.model("Profile", profileSchema);
+const Profile = mongoose.models?.Profile || mongoose.model("Profile", profileSchema);
+export {
+    profileSchema
+}
+export default Profile;

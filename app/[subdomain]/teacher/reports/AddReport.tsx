@@ -64,11 +64,6 @@ const AddReport = () => {
         });
     };
 
-    const handleSubmit = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        console.log('Submitted student report:', studentReport);
-        // Add logic to save the student report
-    };
 
     const addReport = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();

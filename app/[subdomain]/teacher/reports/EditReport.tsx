@@ -132,7 +132,6 @@ const EditReport = (props: any) => {
         }
     };
 
-
     const getReportData = useCallback(async () => {
         const reportResponse = await fetch('/api/reports/' + props.reportId).then(res => res.json());
         console.log(reportResponse);

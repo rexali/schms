@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import EditApplicant from './EditApplicant';
 
-const AdmissionList = (props:any) => {
+const ApplicantList = (props:any) => {
     const [edit, setEdit] = useState(false);
     const [applicants, setApplicants] = useState([
         {
@@ -50,7 +50,7 @@ const AdmissionList = (props:any) => {
         <div className="container mt-5">
             <div className='row'>
                 <div className='col-md-12'>
-                    <h2 >Admission List</h2>
+                    <h2 >Applicants List</h2>
                     <div className="table-responsive">
                         <table className="table table-bordered table-striped">
                             <thead className="thead-dark">
@@ -92,4 +92,4 @@ const AdmissionList = (props:any) => {
     );
 };
 
-export default AdmissionList;
+export default ApplicantList;

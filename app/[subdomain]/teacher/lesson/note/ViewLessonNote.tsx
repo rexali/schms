@@ -50,11 +50,14 @@ export default function ViewLessonNote(props: any) {
             mode: 'cors',
             body: JSON.stringify({ ...replyData })
         }).then(res => res.json());
-
-        if (replyResponse.status) {
-            setReplyStatus(replyResponse.status + ": " + replyResponse.message);
+        
+        if (replyResponse.status==='success') {
+            setReplyStatus(replyResponse.status+": " + replyResponse.message);
             setReply(' ');
             getLessonsData();
+            setModal(false)
+        }else{
+            setReplyStatus(replyResponse.status + ": " + replyResponse.message);
         }
     }
 
@@ -223,7 +226,7 @@ export default function ViewLessonNote(props: any) {
             <div className="row">
                 <h2>Comments</h2>
                 {
-                    lesson.comments.map(comment => (
+                    lesson?.comments?.map(comment => (
                         <div className="card m-1" key={comment._id}>
                             <p className="p-2">{comment.comment}</p>
                             {

@@ -6,7 +6,7 @@ interface User {
     password: string;
     role: string;
     rememberMe: string;
-    verificationCode: String; //parent's verificationCode
+    verificationCode: string; //parent's verificationCode
     verificationStatus: string;
     profile: Types.ObjectId;
     createdAt: Date;
@@ -20,9 +20,12 @@ const userSchema = new Schema<User>({
     rememberMe: { type: String },
     verificationCode: { type: String },
     verificationStatus: { type: String },
-    profile: { type: Schema.Types.ObjectId, ref: "Profile" },
+    profile: { type: Schema.Types.ObjectId, ref: "Profile"},
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
 
-export default mongoose.models.User || mongoose.model("User", userSchema);
+const User = mongoose.models.User || mongoose.model("User", userSchema);
+
+export default User;
+

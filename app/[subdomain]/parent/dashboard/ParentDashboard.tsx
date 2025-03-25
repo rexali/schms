@@ -10,6 +10,7 @@ import StudentAttendance4ParentPage from "../attendance/page";
 import StudentAssignments4ParentPage from "../assignments/page";
 import StudentLessonNotes4ParentPage from "../lessons/page";
 import StudentReport4ParentPage from "../reports/page";
+import ProfilePage from "../../teacher/profiles/page";
 
 
 export default function ParentDashboard(props: any) {
@@ -69,7 +70,7 @@ export default function ParentDashboard(props: any) {
                         </div>
 
                         <div className="tab-pane active" id={tabName}>
-                            {tabName === 'profile' ? <div className="container">profile</div> : ''}
+                            {tabName === 'profile' ? <ProfilePage/> : ''}
                             {tabName === 'assignments' ? <div className="container"><StudentAssignments4ParentPage /></div> : ''}
                             {tabName === 'attendance' ? <div className="container"><StudentAttendance4ParentPage /></div> : ''}
                             {tabName === 'messages' ? <div className="container"><MessagesPage /></div> : ''}

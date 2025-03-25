@@ -1,153 +1,241 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Close from '@mui/icons-material/Close';
+// import EditApplicant from './EditApplicant';
 
 const EditApplicant = (props:any) => {
-  const [applicant, setApplicants] = useState([
-    {
-      firstName: 'John',
-      lastName: 'Doe',
-      class: '10A',
-      admissionNumber: '12345',
-      payment: 'Paid',
-      address: '123 Main St',
-      dateOfBirth: '2005-01-01',
-      classMaster: 'Mr. Smith'
-    },
-    // Add more student objects here
-  ]);
+    const [edit, setEdit] = useState(false);
+    const [applicants, setApplicants] = useState([
+        {
+            firstName: 'John',
+            lastName: 'Doe',
+            class: '10A',
+            dateOfBirth: '2005-01-01',
+            user: { email: "" },
+            photo: "",
+            phone: '',
+            streetAddress: "",
+            localGovt: "",
+            state: "",
+            country: "",
+            documents: [""],
+            photoFile: {},
+            documentFiles: [{}]
+        },
+        // Add more student objects here
+    ]);
 
-  const [newApplicant, setNewApplicant] = useState({
-    firstName: '',
-    lastName: '',
-    class: '',
-    admissionNumber: '',
-    payment: '',
-    address: '',
-    dateOfBirth: '',
-    classMaster: ''
-  });
-
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
-    const { name, value } = e.target;
-    setNewApplicant({ ...newApplicant, [name]: value });
-  };
-
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    setApplicants([...applicant, newApplicant]);
-    setNewApplicant({
-      firstName: '',
-      lastName: '',
-      class: '',
-      admissionNumber: '',
-      payment: '',
-      address: '',
-      dateOfBirth: '',
-      classMaster: ''
+    const [newApplicant, setNewApplicant] = useState({
+        firstName: 'John',
+        lastName: 'Doe',
+        class: '10A',
+        dateOfBirth: '2005-01-01',
+        user: { email: "" },
+        photo: "",
+        phone: '',
+        streetAddress: "",
+        localGovt: "",
+        state: "",
+        country: "",
+        documents: [""],
+        photoFile: {},
+        documentFiles: [{}]
     });
-  };
 
-  return (
-    <div className="container mt-5">
-      <h2 className='d-flex flex-row justify-content-between'>Edit Applicant <button className='btn btn-success' onClick={() => props.setEdit(false)}><Close /> close</button></h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label className="form-label">First Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="firstName"
-            value={newApplicant.firstName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Last Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="lastName"
-            value={newApplicant.lastName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Class</label>
-          <input
-            type="text"
-            className="form-control"
-            name="class"
-            value={newApplicant.class}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Admission Number</label>
-          <input
-            type="text"
-            className="form-control"
-            name="admissionNumber"
-            value={newApplicant.admissionNumber}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Payment</label>
-          <input
-            type="text"
-            className="form-control"
-            name="payment"
-            value={newApplicant.payment}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Address</label>
-          <input
-            type="text"
-            className="form-control"
-            name="address"
-            value={newApplicant.address}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Date of Birth</label>
-          <input
-            type="date"
-            className="form-control"
-            name="dateOfBirth"
-            value={newApplicant.dateOfBirth}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="mb-3">
-          <label className="form-label">Class Master</label>
-          <input
-            type="text"
-            className="form-control"
-            name="classMaster"
-            value={newApplicant.classMaster}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className='text-center'>
-        <button type="submit" className="btn btn-primary">Update</button>
+    const handleChange = (e: { target: { name: any; value: any; }; }) => {
+        const { name, value } = e.target;
+        setNewApplicant({ ...newApplicant, [name]: value });
+    };
 
-        </div>
-      </form>
+    const handleSubmit = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+        setApplicants([...applicants, newApplicant]);
+        setNewApplicant({
+            firstName: 'John',
+            lastName: 'Doe',
+            class: '10A',
+            dateOfBirth: '2005-01-01',
+            user: { email: "" },
+            photo: "",
+            phone: '',
+            streetAddress: "",
+            localGovt: "",
+            state: "",
+            country: "",
+            documents: [""],
+            photoFile: {},
+            documentFiles: [{}]
+        });
+    };
 
-    </div>
-  );
+
+    if (edit) {
+        return <EditApplicant setEdit={setEdit} />
+    }
+
+    return (
+        <div className="container mt-5">
+            <div className='row'>
+                <div className='col-md-12'>
+                    <h2>Add New Applicant</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className='row'>
+
+                            <div className='col-md-6'>
+                                <div className="mb-3">
+                                    <label className="form-label">First Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="firstName"
+                                        defaultValue={newApplicant.firstName}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Last Name</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="lastName"
+                                        defaultValue={newApplicant.lastName}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Email Addreess</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="email"
+                                        defaultValue={newApplicant?.user?.email}
+                                        disabled
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Photo</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        name="photo"
+                                        defaultValue={newApplicant.photo}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="phone"
+                                        defaultValue={newApplicant.phone}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Date of Birth</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        name="dateOfBirth"
+                                        defaultValue={newApplicant.dateOfBirth}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Street Address</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="streetAddress"
+                                        defaultValue={newApplicant.streetAddress}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Local Govt</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="localGovt"
+                                        defaultValue={newApplicant.localGovt}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">State</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="state"
+                                        defaultValue={newApplicant.state}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Country</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="country"
+                                        defaultValue={newApplicant.country}
+                                        onChange={handleChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-md-6'>
+
+                                <div className="mb-3">
+                                    <label className="form-label">Documents</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        name="documents"
+                                        defaultValue={newApplicant.documents}
+                                        onChange={handleChange}
+                                        multiple
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <p className='text-center text-success'>{status}</p>
+                        <p className='text-center'> <button type="submit" className="btn btn-primary m-2">Update Applicant</button>   </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+    );
 };
 
 export default EditApplicant;

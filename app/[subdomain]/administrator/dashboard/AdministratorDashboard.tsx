@@ -4,7 +4,6 @@ import { useState } from "react";
 import VerticalMenu from "../../components/menu/VerticalMenu";
 import { DynamicHorizontalMenu } from "../../components/menu/HorizontalMenu";
 import 'bootstrap/dist/css/bootstrap.min.css'
-import StudentsTable from "../students/page";
 import AddStudent from "../students/AddStudent";
 import AddStaff from "../staff/AddStaff";
 import AddApplicant from "../applicants/AddApplicant";
@@ -15,10 +14,13 @@ import StudentReportSheet from "../reports/page";
 import AddReport from "../reports/AddReport";
 import MessagesList from "../messages/page";
 import LessonPlans from "../lessons/page";
+import ProfilePage from "../../teacher/profiles/page";
+import ApplicantPage from "../applicants/page";
+import TeacherAttendance from "../attendance/page";
 
 
 export default function AdministratorDashboard(props: any) {
-    let [tabName, setTabName] = useState('students');
+    let [tabName, setTabName] = useState('profile');
 
     const openTab = (tabname: any) => {
         setTabName(tabname);
@@ -73,15 +75,15 @@ export default function AdministratorDashboard(props: any) {
                             <p>Welcome to Admin Dashboard</p>
                         </div>
                         <div className="tab-pane active" id={tabName}>
-                            {tabName === 'profile' ? <div className="container">Profile</div> : ''}
+                            {tabName === 'profile' ? <ProfilePage /> : ''}
                             {tabName === 'students' ? <div className="container"><AddStudent /></div> : ''}
                             {tabName === 'staff' ? <div className="conatiner"><AddStaff /></div> : ''}
-                            {tabName === 'applicants' ? <div className="conatiner"><AddApplicant /></div> : ''}
+                            {tabName === 'applicants' ? <div className="conatiner"><ApplicantPage /></div> : ''}
                             {tabName === 'classes' ? <div className="container"><ClassesList /></div> : ''}
                             {tabName === 'lessons' ? <div><LessonPlans /></div> : ''}
                             {tabName === 'questions' ? <div><AddReport /></div> : ''}
                             {tabName === 'schedules' ? <div><AddSchedule /></div> : ''}
-                            {tabName === 'attendance' ? <div>Teacher:attendance</div> : ''}
+                            {tabName === 'attendance' ? <div><TeacherAttendance /></div> : ''}
                             {tabName === 'reports' ? <div className="conatiner"><StudentReportSheet /></div> : ''}
                             {tabName === 'events' ? <div className="container"><EventsList /></div> : ''}
                             {tabName === 'admissions' ? <div>Admission: applicant, admitted students</div> : ''}

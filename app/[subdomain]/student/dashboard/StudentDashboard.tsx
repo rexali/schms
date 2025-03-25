@@ -12,6 +12,7 @@ import StudentExams from "../exams/page";
 import StudentReportSheet from "../reports/page";
 import StudentAttendance from "../attendance/page";
 import ParentComponent from "../attendance/ParentComponent";
+import ProfilePage from "../../teacher/profiles/page";
 
 export default function TeacherDashboard(props: any) {
     let [tabName, setTabName] = useState('profile');
@@ -70,7 +71,7 @@ export default function TeacherDashboard(props: any) {
                             {tabName === 'reports' ? <div><StudentReportSheet /></div> : ''}
                             {tabName === 'attendance' ? <div><StudentAttendance /></div> : ''}
                             {/* {tabName === 'attendance' ? <div><ParentComponent  /></div> : ''} */}
-                            {tabName === 'profile' ? <div className="container">profile</div> : ''}
+                            {tabName === 'profile' ? <ProfilePage /> : ''}
                             {tabName === 'lessons' ? <div><StudentLessons/></div> : ''}
                             {tabName === 'activities' ? <div><StudentActivities /></div> : ''}
                             {tabName === 'assessments' ? <div><StudentAssessments /></div> : ''}

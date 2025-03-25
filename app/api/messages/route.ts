@@ -1,47 +1,31 @@
-import Reply from '@/models/model.reply';
-import Comment from '@/models/model.comment';
 import Message from '@/models/model.message';
-import User from '@/models/model.user';
-
-
+import Reply from '@/models/model.reply';
 
 
 import { NextRequest, NextResponse } from 'next/server';
-// import { replies } from '@/config/db';
+// import { messages } from '@/config/db';
 
 export async function POST(request: Request) {
 
     try {
         const data = await request.json();
 
-        // const result = replies.create({...data });
-        const reply = await Reply.create({
-            ...data
+        // const result = messages.create({...data });
+        const message = await Message.create({
+            ...data 
         });
 
-         if (data.commentId) {
-            const comment = await Comment.findById(data.commentId).exec();
-            comment.replies.push(reply._id);
-            await comment.save();
-         }
-        
-         if (data.message) {
-            const message = await Message.findById(data.message).exec();
-            message.replies.push(reply._id);
-            await message.save();
-         }
-        
-        
+        await new Reply({ message: message._id }).save();
 
-        if (reply !== null) {
-            if (Object.keys(reply)) {
+        if (message !== null) {
+            if (Object.keys(message)) {
 
                 let json_response = {
                     status: "success",
                     message: 'successfully created',
                     data: {
                         // result,
-                        reply
+                        message
                     },
                 };
 
@@ -54,7 +38,7 @@ export async function POST(request: Request) {
 
             let json_response = {
                 status: "fail",
-                message: 'No reply created',
+                message: 'No message created',
                 data: {},
             };
 
@@ -119,17 +103,21 @@ export async function GET(request: NextRequest) {
         const limit = limit_str ? parseInt(limit_str, 10) : 10;
         const skip = (page - 1) * limit;
 
-        // const result = replies.list();
-        const replies = await Reply.find().exec();
-        if (replies !== null) {
+        // const result = messages.list();
+        const messages = await Message.find()
+        // .populate("user")
+        .populate({
+            path:"replies",
+        }).exec();
+        if (messages !== null) {
 
-            if (replies.length) {
-                let json_response = {
+            if (messages.length) {
+                 let json_response = {
                     status: "success",
                     message: 'Found!',
                     data: {
                         // result,
-                        replies
+                        messages
                     },
                 };
 

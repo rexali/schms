@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import EditSchedule from './EditSchedule';
 
 const subjects = [
     'Math',
@@ -23,16 +22,12 @@ const subjects = [
     'Literature'
 ];
 
-const teachers = Array.from({ length: 24 }, (_, i) => `Teacher ${i + 1}`);
-
 const classes = ['Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8'];
 
-const TeacherSchedulesList = (props: any) => {
+const EditSchedule = (props: any) => {
     const userId = JSON.parse(window.sessionStorage.getItem('user') as string)._id;
     const mountRef = useRef(true);
     const [status, setStatus] = useState<string>('');
-    const [edit, setEdit] = useState<boolean>(false);
-    const [scheduleId, setScheduleId] = useState<string>('');
     const [schedules, setSchedules] = useState<any>([]);
     const [schedule, setSchedule] = useState({
         time: '',
@@ -47,57 +42,45 @@ const TeacherSchedulesList = (props: any) => {
         setSchedule({ ...schedule, [name]: value });
     };
 
-
-    async function removeScheduleHandler(_id: string): Promise<boolean> {
-        const reportResponse = await fetch('/api/schedules/' + _id, { method: "DELETE", mode: "cors" }).then(res => res.json());
-        if (reportResponse.status === 'success') {
-            getSchedulesData();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
-    const addScheduleSubmit = async (event: { preventDefault: () => void; }) => {
+    const updateScheduleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        setStatus("Adding schedule..")
+        setStatus("Updating schedule..")
         let finalSchedule = { ...schedule, user: userId }
         console.log('Submitted report:', finalSchedule);
-        const scheduleResponse = await fetch('/api/schedules', {
+        const scheduleResponse = await fetch('/api/schedules/'+props.scheduleId, {
             mode: 'cors',
-            method: "POST",
+            method: "PATCH",
             body: JSON.stringify({ ...finalSchedule })
         }).then(res => res.json());
         if (scheduleResponse.status === 'success') {
-            // setSchedules([...schedules, schedule]);
-            setSchedule({
-                time: '',
-                duration: '',
-                class: '',
-                subject: '',
-                teacher: ''
-            });
-            setStatus(scheduleResponse.status);
+            setStatus(scheduleResponse.status)
             getSchedulesData();
         } else {
             setStatus(scheduleResponse.status + ": " + scheduleResponse.message)
         }
     };
 
-    const getSchedulesData = useCallback(async () => {
-        const scheduleResponse = await fetch('/api/schedules').then(res => res.json());
+    const getScheduleData = useCallback(async () => {
+        const scheduleResponse = await fetch('/api/schedules/' + props.scheduleId).then(res => res.json());
         console.log(scheduleResponse);
         if (scheduleResponse.status === 'success') {
-            setSchedules(scheduleResponse.data.schedules);
+            setSchedule(scheduleResponse.data.schedule);
         } else {
-            setSchedules([...schedules]);
+            setSchedule({...schedule});
         }
     }, [])
 
+    const getSchedulesData = useCallback(async () => {
+        const scheduleResponse = await fetch('/api/schedules').then(res => res.json());
+        if (scheduleResponse.status === 'success') {
+            props.setSchedules(scheduleResponse.data.schedules);
+        } 
+    }, [])
+
+
     useEffect(() => {
         if (mountRef.current) {
-            getSchedulesData();
+            getScheduleData();
         }
 
         return () => {
@@ -105,65 +88,11 @@ const TeacherSchedulesList = (props: any) => {
         }
     }, []);
 
-    if (edit) {
-        return <EditSchedule scheduleId={scheduleId} setEdit={setEdit} setSchedules={setSchedules} />
-    }
 
     return (
         <div className="container mt-5">
-            <h2 className="mt-5">Schedules List</h2>
-            <div className="table-responsive">
-                <table className="table table-bordered table-striped">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th>Time</th>
-                            <th>Duration</th>
-                            <th>Class</th>
-                            <th>Subject</th>
-                            <th>Teacher</th>
-                            <th colSpan={2} className='text-center'>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {schedules.map((schedule: any, index: any) => (
-                            <tr key={index}>
-                                <td>{schedule.time}</td>
-                                <td>{schedule.duration}</td>
-                                <td>{schedule.class}</td>
-                                <td>{schedule.subject}</td>
-                                <td>{schedule.teacher}</td>
-                                <td className='text-center'>
-                                    <button
-                                        type="button"
-                                        className='btn btn-success'
-                                        onClick={() => {
-                                            setScheduleId(schedule._id);
-                                            setEdit(true)
-                                        }}>
-                                        edit
-                                    </button>
-                                </td>
-                                <td className='text-center'>
-                                    <button
-                                        type="button"
-                                        className='btn btn-danger'
-                                        onClick={() => {
-                                            const dialog = confirm('\n\n Want to delete this?');
-                                            if (dialog) {
-                                                removeScheduleHandler(schedule._id);
-                                            }
-                                        }}>
-                                        delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div><br />
-
-            <h2>Add New Schedule</h2>
-            <form onSubmit={addScheduleSubmit}>
+            <h2 className='d-flex justify-content-between'>Edit schedule <button className='btn btn-success' onClick={() => props.setEdit(false)}>close</button></h2>
+            <form onSubmit={updateScheduleSubmit}>
                 <div className='row'>
                     <div className='col-md-6'>
                         <div className="mb-3">
@@ -172,7 +101,7 @@ const TeacherSchedulesList = (props: any) => {
                                 type="time"
                                 className="form-control"
                                 name="time"
-                                value={schedule.time}
+                                defaultValue={schedule.time}
                                 onChange={handleChange}
                                 required
                             />
@@ -186,7 +115,7 @@ const TeacherSchedulesList = (props: any) => {
                                 type="text"
                                 className="form-control"
                                 name="duration"
-                                value={schedule.duration}
+                                defaultValue={schedule.duration}
                                 onChange={handleChange}
                                 required
                             />
@@ -205,7 +134,7 @@ const TeacherSchedulesList = (props: any) => {
                             >
                                 <option value="">Select Class</option>
                                 {classes.map((cls, index) => (
-                                    <option key={index} value={cls}>{cls}</option>
+                                    <option key={index} defaultValue={cls}>{cls}</option>
                                 ))}
                             </select>
                         </div>
@@ -217,13 +146,13 @@ const TeacherSchedulesList = (props: any) => {
                             <select
                                 className="form-control"
                                 name="subject"
-                                value={schedule.subject}
+                                value={schedule?.subject}
                                 onChange={handleChange}
                                 required
                             >
                                 <option value="">Select Subject</option>
                                 {subjects.map((subject, index) => (
-                                    <option key={index} value={subject}>{subject}</option>
+                                    <option key={index} defaultValue={subject}>{subject}</option>
                                 ))}
                             </select>
                         </div>
@@ -236,7 +165,7 @@ const TeacherSchedulesList = (props: any) => {
                                 type="text"
                                 className="form-control"
                                 name="teacher"
-                                value={schedule.teacher}
+                                defaultValue={schedule.teacher}
                                 onChange={handleChange}
                                 required
                             />
@@ -248,19 +177,19 @@ const TeacherSchedulesList = (props: any) => {
                     <select
                         className="form-control"
                         name="teacher"
-                        value={schedule.teacher}
+                        defaultValue={schedule.teacher}
                         onChange={handleChange}
                         required
                     >
                         <option value="">Select Teacher</option>
                         {teachers.map((teacher, index) => (
-                            <option key={index} value={teacher}>{teacher}</option>
+                            <option key={index} defaultValue={teacher}>{teacher}</option>
                         ))}
                     </select>
                 </div> */}
                 <p className='text-center text-success'>{status}</p>
 
-                <p className='text-center text-success'><button type="submit" className="btn btn-primary w-50">Add Schedule</button></p>
+                <p className='text-center text-success'><button type="submit" className="btn btn-primary w-50">Update Schedule</button></p>
             </form>
 
 
@@ -268,4 +197,4 @@ const TeacherSchedulesList = (props: any) => {
     );
 };
 
-export default TeacherSchedulesList;
+export default EditSchedule;
