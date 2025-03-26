@@ -37,7 +37,7 @@ export default function SubjectsList() {
     }
 
     function addClassChange(event: { target: { name: string, value: string } }): void {
-        setSubject({ ...subject, id: subjects.length + 1, [event.target.name]: event.target.value })
+        setSubject({ ...subject, [event.target.name]: event.target.value })
     }
 
     function addClass(): void {

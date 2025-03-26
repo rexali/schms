@@ -35,7 +35,7 @@ const EventsList = () => {
   const handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     if (isEditing) {
-      setEvents(events.map((event:any) => (event.id === newEvent.id ? newEvent : event)));
+      setEvents(events.map((event: any) => (event.id === newEvent.id ? newEvent : event)));
       setIsEditing(false);
     } else {
       setNewEvent({ ...newEvent, id: events.length + 1 });
