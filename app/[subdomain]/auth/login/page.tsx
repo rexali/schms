@@ -37,7 +37,7 @@ export default function LoginPage(props: any) {
 
             setStatus('Verifying data...');
 
-            window.localStorage.setItem('token', response.data.token);
+            window.sessionStorage.setItem('token', response.data.token);
 
             let response2 = await fetch('/api/auth/verify', {
                 mode: 'cors',
@@ -50,7 +50,7 @@ export default function LoginPage(props: any) {
 
             if (response2.data.token && response2.data.role === logInData.role) {
                 window.sessionStorage.setItem('user', JSON.stringify(response2.data));
-    
+
                 setStatus('Success! Please wait');
 
                 setTimeout(() => {
@@ -60,6 +60,8 @@ export default function LoginPage(props: any) {
                 setStatus('Check and select the appropriate tab above! ');
                 router.push(`/`)
             }
+        } else {
+            setStatus(response.status + ": " + response.message);
         }
 
     }

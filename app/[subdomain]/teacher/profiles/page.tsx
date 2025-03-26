@@ -62,10 +62,9 @@ const ProfilePage = () => {
         setStatus("Sending data...")
         console.log('Submittted profile:', profile);
         const formData = new Form();
-
-        profile.documentFiles.forEach(file => {
-            formData.append("filetouploads", file, file.name)
-        })
+        for (const file of profile.documentFiles) {
+            formData.append("filetouploads", file)
+        }
         formData.append('firstName', profile.firstName);
         formData.append('lastName', profile.lastName);
         formData.append('photo', profile.photo);
@@ -75,7 +74,7 @@ const ProfilePage = () => {
         formData.append('localGovt', profile.localGovt);
         formData.append('state', profile.localGovt);
         formData.append('country', profile.country);
-        formData.append('filetoupload', profile.photoFile, profile.photoFile.name);
+        formData.append('filetoupload', profile.photoFile);
         formData.append("documents", profile.documents);
         formData.append("_id", profile._id);
 
@@ -90,24 +89,7 @@ const ProfilePage = () => {
         console.log(profileResponse.data);
 
         if (profileResponse.data.status === "success") {
-
             setStatus(profileResponse.data.status + ": " + profileResponse.data.message);
-            // setProfile({
-            //     _id: "",
-            //     firstName: "",
-            //     lastName: "",
-            //     photo: "",
-            //     phone: '',
-            //     user: { email: "" },
-            //     dateOfBirth: "",
-            //     streetAddress: "",
-            //     localGovt: "",
-            //     state: "",
-            //     country: "",
-            //     documents: [""],
-            //     photoFile: {name:""},
-            //     documentFiles: []
-            // });
         } else {
             setStatus(profileResponse.data.status + ": " + profileResponse.data.message)
         }
@@ -196,7 +178,7 @@ const ProfilePage = () => {
                         </div>
                     </div>
                     <div className='col-md-6'>
-                        <Image src={previewUrl} alt={previewUrl} width={100} height={100} style={{ height: "auto", width: "auto" }} />
+                        {previewUrl && <Image src={previewUrl} alt={previewUrl} width={100} height={100} style={{ height: "auto", width: "auto" }} />}
                         <div className="mb-3">
                             <label className="form-label">Photo</label>
                             <input
@@ -204,7 +186,7 @@ const ProfilePage = () => {
                                 className="form-control"
                                 id='file'
                                 name="photo"
-                                formEncType=''
+                                formEncType='multipart/form-data'
                                 defaultValue={profile.photo}
                                 onChange={handleChange}
                             />
@@ -291,7 +273,7 @@ const ProfilePage = () => {
                     </div>
                     <div className='col-md-6'>
                         {
-                            previewUrls.map((url: any) => {
+                            previewUrls.length > 0 && previewUrls.map((url: any) => {
                                 return <Image key={url} src={url} alt={previewUrl} width={100} height={100} style={{ height: "auto", width: "auto" }} />
                             })
                         }
@@ -303,6 +285,7 @@ const ProfilePage = () => {
                                 name="documents"
                                 defaultValue={profile.documents}
                                 onChange={handleChange}
+                                formEncType='multipart/form-data'
                                 multiple
                             />
                         </div>

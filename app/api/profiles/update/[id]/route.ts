@@ -21,7 +21,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
         const body = Object.fromEntries(formData);
         const filetoupload = (body.filetoupload as Blob) || null;
 
-        const filetouploads = body.filetouploads;
+        // const filetouploads = body.filetouploads as unknown as Array<Blob> || null; 
+
+        // console.log(filetouploads);
 
         if (filetoupload) {
 
@@ -31,7 +33,7 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
                 fs.mkdirSync(UPLOAD_DIR)
             }
 
-            fs.writeFileSync(path.resolve(UPLOAD_DIR, (filetoupload as File).name), buffer);
+            fs.writeFileSync(path.resolve(UPLOAD_DIR, Date.now() + Math.random() + (filetoupload as File).name), buffer);
 
         } else {
             let error_response = {

@@ -35,6 +35,8 @@ export default function SignupPage(props: any) {
             setTimeout(() => {
                 router.push('/auth')
             }, 2000);
+        }else{
+            setStatus(response.status+": "+response.message);
         }
     }
 
